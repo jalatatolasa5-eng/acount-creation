@@ -22,8 +22,8 @@ function field_err($errors, $k) { return isset($errors[$k]) ? '<div class="err">
 function page_top($title) {
     global $db;
     echo '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-       . '<title>' . e($title) . ' - CBE Savings Account Demo</title><link rel="stylesheet" href="style.css"></head><body>'
-       . '<header><div class="wrap"><b>CBE Personal Savings Account</b><span>Student demo, not a real bank system &middot; demo date ' . e(today($db)) . '</span></div></header>'
+       . '<title>' . e($title) . ' - CBE Wayu Branch Savings Account Demo</title><link rel="stylesheet" href="style.css"></head><body>'
+       . '<header><div class="wrap"><b>CBE Personal Savings Account &middot; Wayu Branch, Horo Guduru</b><span>Student demo, not a real bank system &middot; demo date ' . e(today($db)) . '</span></div></header>'
        . '<nav><div class="wrap"><a href="index.php">Home</a><a href="guide.php">Applicant guide</a><a href="tariff.php">Rates &amp; fees</a><a href="requirements.php">Requirements &amp; use cases</a><span class="sp"></span>';
     if (!empty($_SESSION['uid'])) {
         echo '<a href="dashboard.php">Dashboard</a>';

@@ -3,7 +3,7 @@ require 'inc.php';
 page_top('Home');
 ?>
 <div class="hero">
-  <h1>Opening a personal savings account at CBE</h1>
+  <h1>Opening a personal savings account at CBE Wayu Branch, Horo Guduru</h1>
   <p>Free to open. You can start with a zero balance if you can reach ETB 100 within 15 days. Ordinary savings pays 7% a year. Every applicant must pass identity verification.</p>
   <p><a class="btn" href="guide.php">Prepare for your visit</a> <a class="btn alt" href="tariff.php">See rates and fees</a></p>
 </div>
