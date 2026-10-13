@@ -1,5 +1,4 @@
 <?php
-// Shared setup: session, database (SQLite, nothing to install), helpers and page layout.
 require_once __DIR__ . '/lib.php';
 session_start();
 $db = db_connect(getenv('ACCT_DB') ?: (is_file(__DIR__ . '/use_mysql.txt') ? 'mysql' : __DIR__ . '/data.sqlite'));
@@ -19,139 +18,138 @@ function require_login(array $roles = []) {
 }
 function field_err($errors, $k) {
     return isset($errors[$k])
-        ? '<div class="err"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="2"/><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' . e($errors[$k]) . '</div>'
+        ? '<div class="err">' . svg_icon('warn-sm') . ' ' . e($errors[$k]) . '</div>'
         : '';
 }
 
-/* ── SVG icon helper ──────────────────────────────────────── */
-function icon($name) {
-    $icons = [
+function svg_icon($name) {
+    $p = [
         'home'     => '<path d="M3 9.5L8 5l5 4.5V14a1 1 0 01-1 1h-3v-3H9v3H6a1 1 0 01-1-1V9.5z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>',
         'plus'     => '<path d="M8 4v8M4 8h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
-        'check'    => '<path d="M4 8.5l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
-        'accounts' => '<rect x="3" y="5" width="10" height="8" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M6 5V4a2 2 0 014 0v1" stroke="currentColor" stroke-width="1.5" fill="none"/>',
-        'tariff'   => '<path d="M4 4h8v1.5L8 9l-4-3.5V4zM8 9v5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M5 14h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
-        'audit'    => '<path d="M5 4h6M5 8h6M5 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="3" y="2" width="10" height="13" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>',
-        'admin'    => '<circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 2v1.5M8 12.5V14M2 8h1.5M12.5 8H14M3.6 3.6l1.1 1.1M11.3 11.3l1.1 1.1M3.6 12.4l1.1-1.1M11.3 4.7l1.1-1.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
-        'guide'    => '<path d="M4 3h5l3 3v9H4V3z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M9 3v3h3M6 8h4M6 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
-        'logout'   => '<path d="M10 8H4M7 5l-3 3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 4h4v8H8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>',
-        'req'      => '<rect x="3" y="3" width="10" height="11" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M6 7h4M6 10h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
-        'user'     => '<circle cx="8" cy="6" r="2.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M3 14c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>',
-        'calendar' => '<rect x="3" y="4" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M6 2v2M10 2v2M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
-        'bank'     => '<path d="M2 7l6-4 6 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="7" width="2" height="5" fill="currentColor" rx=".5"/><rect x="7" y="7" width="2" height="5" fill="currentColor" rx=".5"/><rect x="11" y="7" width="2" height="5" fill="currentColor" rx=".5"/><path d="M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
-        'warn'     => '<path d="M8 3L2 13h12L8 3z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M8 8v2.5M8 12h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+        'check'    => '<path d="M3 8.5l3.5 3.5 6.5-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+        'accounts' => '<path d="M10 8a3 3 0 100-6 3 3 0 000 0M4 14s-1 0-1-1 1-4 7-4 7 3 7 4-1 1-1 1H4z" stroke="currentColor" stroke-width="1.5" fill="none"/>',
+        'tariff'   => '<path d="M12 2H4a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V3a1 1 0 00-1-1zM6 6h4M6 9h4M6 12h2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>',
+        'audit'    => '<path d="M5 4h6M5 7.5h6M5 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="3" y="2" width="10" height="13" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>',
+        'admin'    => '<circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.1 3.1l1.4 1.4M11.5 11.5l1.4 1.4M3.1 12.9l1.4-1.4M11.5 4.5l1.4-1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+        'guide'    => '<path d="M4 2h8a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1zM9 2v3l-1-.5L7 5V2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M5 8h6M5 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+        'logout'   => '<path d="M11 8H5M8 5l-3 3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 4h3a1 1 0 011 1v6a1 1 0 01-1 1H9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>',
+        'req'      => '<rect x="2" y="2" width="12" height="13" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M5 6h6M5 9h6M5 12h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+        'user'     => '<circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M2.5 14c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>',
+        'calendar' => '<rect x="2" y="3" width="12" height="11" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M5 1v2M11 1v2M2 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+        'warn'     => '<path d="M8 3L2 13h12L8 3z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M8 7.5v2.5M8 12h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+        'warn-sm'  => '<path d="M7 2.5L1.5 12h11L7 2.5z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M7 6.5v2.5M7 11h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
         'info'     => '<circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 7v4M8 5.5h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
         'ok-ic'    => '<circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M5.5 8l2 2 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+        'bank'     => '<path d="M2 7.5L8 3l6 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="3.5" y="7.5" width="2" height="5" fill="currentColor" rx=".5"/><rect x="7" y="7.5" width="2" height="5" fill="currentColor" rx=".5"/><rect x="10.5" y="7.5" width="2" height="5" fill="currentColor" rx=".5"/><path d="M2 12.5h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+        'print'    => '<rect x="3" y="6" width="10" height="7" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M5 6V3h6v3M5 13v-3h6v3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>',
+        'search'   => '<circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M10.5 10.5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
     ];
-    $path = $icons[$name] ?? '';
-    return '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">' . $path . '</svg>';
+    $d = $p[$name] ?? '';
+    return '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">' . $d . '</svg>';
 }
 
-/* ── Sidebar nav link helper ─────────────────────────────── */
-function nav_link($href, $label, $icon_name, $current_page) {
-    $active = (basename($_SERVER['PHP_SELF']) === $href) ? ' active' : '';
-    return '<li><a href="' . e($href) . '" class="' . ltrim($active) . '">' . icon($icon_name) . ' ' . e($label) . '</a></li>';
+function nav_link($href, $label, $icon, $cur, $badge = 0) {
+    $active = basename($_SERVER['PHP_SELF']) === $href ? ' active' : '';
+    $bdg = $badge ? '<span class="nav-badge">' . (int)$badge . '</span>' : '';
+    return '<li><a href="' . e($href) . '" class="' . ltrim($active) . '">' . svg_icon($icon) . ' ' . e($label) . $bdg . '</a></li>';
 }
 
-/* ── page_top: outputs full HTML head + sidebar + topbar ─── */
 function page_top($title) {
     global $db;
-    $today  = today($db);
-    $is_login = (basename($_SERVER['PHP_SELF']) === 'login.php');
+    $today   = today($db);
+    $is_login = basename($_SERVER['PHP_SELF']) === 'login.php';
 
     echo '<!DOCTYPE html><html lang="en"><head>'
-       . '<meta charset="utf-8">'
-       . '<meta name="viewport" content="width=device-width,initial-scale=1">'
-       . '<title>' . e($title) . ' – CBE Savings Back-office</title>'
+       . '<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+       . '<title>' . e($title) . ' – CBE Savings Account System</title>'
        . '<link rel="stylesheet" href="style.css">'
        . '</head>';
 
-    /* Login page has its own layout */
-    if ($is_login) {
-        echo '<body class="login-page">';
-        return;
+    if ($is_login) { echo '<body class="login-body">'; return; }
+
+    $user   = $_SESSION['user'] ?? '';
+    $r      = $_SESSION['role'] ?? '';
+    $is_sup = ($r === 'supervisor');
+    $initials = $user ? strtoupper(substr($user, 0, 2)) : 'CB';
+
+    // pending count for badge
+    $pending = 0;
+    if ($is_sup && !empty($_SESSION['uid'])) {
+        try { $pending = (int)$db->query("SELECT COUNT(*) FROM accounts WHERE status='Pending'")->fetchColumn(); } catch(Exception $e) {}
     }
 
-    $user   = $_SESSION['user']   ?? '';
-    $r      = $_SESSION['role']   ?? '';
-    $cur    = basename($_SERVER['PHP_SELF']);
-    $is_sup = ($r === 'supervisor');
-
-    /* ── Sidebar ── */
     echo '<body>';
-    echo '<nav class="sidebar" aria-label="Main navigation">';
 
-    /* Logo */
-    echo '<a class="sidebar-logo" href="index.php">'
-       . '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">'
-       . '<rect width="32" height="32" rx="7" fill="#c8962e"/>'
-       . '<path d="M4 21l12-11 12 11" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
-       . '<rect x="7" y="16" width="3" height="7" fill="#fff" rx="1"/>'
-       . '<rect x="14.5" y="16" width="3" height="7" fill="#fff" rx="1"/>'
-       . '<rect x="22" y="16" width="3" height="7" fill="#fff" rx="1"/>'
-       . '<path d="M4 21h24" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>'
-       . '</svg>'
-       . '<div><strong style="font-size:13px;font-weight:800;color:#f0c040;display:block">CBE Savings</strong>'
-       . '<span>Wayu Branch</span></div></a>';
+    /* ── Sidebar ─────────────────────────────────────────── */
+    echo '<nav class="sidebar" aria-label="Main navigation">'
+       . '<a class="sidebar-logo" href="index.php">'
+       . '<div class="sidebar-logo-icon">'
+       . '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">'
+       . '<path d="M2 13l8-8 8 8" stroke="#1a0533" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+       . '<rect x="4" y="10" width="2.5" height="6" fill="#1a0533" rx=".5"/>'
+       . '<rect x="8.75" y="10" width="2.5" height="6" fill="#1a0533" rx=".5"/>'
+       . '<rect x="13.5" y="10" width="2.5" height="6" fill="#1a0533" rx=".5"/>'
+       . '</svg></div>'
+       . '<div class="sidebar-logo-text"><strong>CBE</strong><span>Savings Account System</span></div>'
+       . '</a>';
 
-    /* Public nav */
-    echo '<div class="sidebar-section">Public</div><ul class="sidebar-nav">';
-    echo nav_link('index.php',    'Home',          'home',    $cur);
-    echo nav_link('guide.php',    'Applicant Guide','guide',  $cur);
-    echo nav_link('tariff.php',   'Rates &amp; Fees','tariff', $cur);
-    echo nav_link('requirements.php', 'Requirements', 'req',  $cur);
+    echo '<ul class="sidebar-nav">';
+    echo nav_link('index.php', 'Dashboard', 'home', basename($_SERVER['PHP_SELF']));
+    if (!empty($_SESSION['uid'])) {
+        if (!$is_sup)
+            echo nav_link('new.php', 'New Application', 'plus', basename($_SERVER['PHP_SELF']));
+        echo nav_link('approvals.php', 'Approvals', 'check', basename($_SERVER['PHP_SELF']), $pending);
+        echo nav_link('accounts.php', 'Accounts', 'accounts', basename($_SERVER['PHP_SELF']));
+        echo nav_link('tariff.php', 'Tariff', 'tariff', basename($_SERVER['PHP_SELF']));
+        if ($is_sup) {
+            echo nav_link('audit.php', 'Audit', 'audit', basename($_SERVER['PHP_SELF']));
+            echo nav_link('admin.php', 'Admin', 'admin', basename($_SERVER['PHP_SELF']));
+        }
+    } else {
+        echo nav_link('guide.php', 'Guide', 'guide', basename($_SERVER['PHP_SELF']));
+        echo nav_link('tariff.php', 'Tariff', 'tariff', basename($_SERVER['PHP_SELF']));
+        echo nav_link('requirements.php', 'Requirements', 'req', basename($_SERVER['PHP_SELF']));
+    }
     echo '</ul>';
 
-    /* Staff nav (only when logged in) */
     if (!empty($_SESSION['uid'])) {
-        echo '<div class="sidebar-section">Staff</div><ul class="sidebar-nav">';
-        echo nav_link('dashboard.php', 'Dashboard',    'home',     $cur);
-        if (!$is_sup)
-            echo nav_link('new.php',   'New Application','plus',   $cur);
-        if ($is_sup)
-            echo nav_link('approvals.php','Approvals', 'check',    $cur);
-        echo nav_link('accounts.php',  'Accounts',    'accounts',  $cur);
-        if ($is_sup) {
-            echo nav_link('admin.php', 'Month-end',   'admin',     $cur);
-            echo nav_link('audit.php', 'Audit Trail', 'audit',     $cur);
-        }
-        echo '</ul>';
-    } else {
-        echo '<ul class="sidebar-nav">';
-        echo nav_link('login.php', 'Staff Login', 'user', $cur);
-        echo '</ul>';
-    }
-
-    /* Sidebar footer */
-    echo '<div class="sidebar-footer">Demo – not a real system</div>';
-    echo '</nav>'; /* end .sidebar */
-
-    /* ── Top bar ── */
-    echo '<div class="topbar" role="banner">';
-    echo '<div class="topbar-title">Commercial Bank of Ethiopia &mdash; Personal Savings</div>';
-    echo '<div class="topbar-meta">';
-    echo '<div class="topbar-date">' . icon('calendar') . ' ' . e($today) . '</div>';
-    if ($user) {
-        $badge_cls = $is_sup ? 'role-badge supervisor' : 'role-badge';
-        $role_lbl  = $is_sup ? 'Supervisor' : 'Maker / Officer';
-        echo '<div class="topbar-user">'
-           . icon('user')
-           . '<span class="topbar-user-name">' . e($user) . '</span>'
-           . '<span class="' . $badge_cls . '">' . e($role_lbl) . '</span>'
+        echo '<div class="sidebar-footer">'
+           . '<div style="font-size:11px;color:var(--sb-muted);margin-bottom:4px;">Signed in as</div>'
+           . '<div style="color:var(--sb-ink);font-weight:700;font-size:12px;">' . e($user) . '</div>'
            . '</div>';
-        echo '<a href="logout.php" class="topbar-logout">' . icon('logout') . ' Log out</a>';
     }
-    echo '</div></div>'; /* end .topbar-meta + .topbar */
+    echo '</nav>';
 
-    /* ── Page body ── */
+    /* ── Top bar ─────────────────────────────────────────── */
+    echo '<div class="topbar" role="banner">'
+       . '<div class="topbar-title">CBE Savings Account System</div>'
+       . '<div class="topbar-right">'
+       . '<div class="topbar-date">' . svg_icon('calendar') . ' Business Date: ' . e($today) . '</div>';
+
+    if ($user) {
+        $role_lbl = $is_sup ? 'Supervisor' : 'Maker';
+        $pill_cls = $is_sup ? 'role-pill supervisor' : 'role-pill';
+        echo '<div class="topbar-user">'
+           . '<div class="user-avatar">' . e($initials) . '</div>'
+           . '<div class="topbar-user-info">'
+           . '<div class="topbar-user-name">' . e($user) . '</div>'
+           . '<div class="topbar-user-role">' . e($role_lbl) . '</div>'
+           . '</div>'
+           . '<span class="' . $pill_cls . '">' . e($role_lbl) . '</span>'
+           . '</div>'
+           . '<a href="logout.php" class="topbar-logout">' . svg_icon('logout') . ' Logout</a>';
+    }
+    echo '</div></div>'; // .topbar-right + .topbar
+
+    /* ── Page body ───────────────────────────────────────── */
     echo '<div class="page-body"><div class="page-content">';
 
-    /* Flash messages */
+    // Flash
     if (!empty($_SESSION['flash'])) {
         echo '<div class="flash-wrap">';
         foreach ($_SESSION['flash'] as [$t, $m]) {
-            $cls = ($t === 'err') ? 'msg msg-err' : 'msg msg-ok';
-            $ic  = ($t === 'err') ? icon('warn') : icon('ok-ic');
+            $cls = $t === 'err' ? 'msg msg-err' : 'msg msg-ok';
+            $ic  = $t === 'err' ? svg_icon('warn') : svg_icon('ok-ic');
             echo '<div class="' . $cls . '" role="status">' . $ic . ' ' . e($m) . '</div>';
         }
         echo '</div>';
@@ -160,11 +158,10 @@ function page_top($title) {
 }
 
 function page_bottom() {
-    $is_login = (basename($_SERVER['PHP_SELF']) === 'login.php');
+    $is_login = basename($_SERVER['PHP_SELF']) === 'login.php';
     if (!$is_login) {
-        echo '</div></div>'; /* end .page-content + .page-body */
-        echo '<footer class="page-footer">Figures come from a desk study of CBE\'s published savings terms. '
-           . 'Confirm current rates, fees and documents with the branch before relying on them.</footer>';
+        echo '</div></div>'; // .page-content .page-body
+        echo '<footer class="page-footer">Figures from a desk study of CBE\'s published savings terms. Confirm current rates, fees and documents with the branch.</footer>';
     }
     echo '</body></html>';
 }

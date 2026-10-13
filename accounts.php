@@ -2,98 +2,133 @@
 require 'inc.php';
 require_login();
 
-$q  = trim($_GET['q']      ?? '');
-$st = $_GET['status']      ?? '';
+$q  = trim($_GET['q']     ?? '');
+$st = $_GET['status']     ?? '';
+$tp = $_GET['type']       ?? '';
 
-$sql  = "SELECT a.*, c.first_name, c.last_name, c.cif FROM accounts a JOIN customers c ON c.id=a.customer_id WHERE 1=1";
+$sql  = "SELECT a.id, a.account_no, a.type, a.status, a.balance, a.opened_at, a.funding_status,
+                c.first_name, c.last_name, c.cif, c.id_number
+           FROM accounts a JOIN customers c ON c.id=a.customer_id WHERE 1=1";
 $args = [];
 if ($q !== '') {
-    $sql  .= " AND (CONCAT(c.first_name, ' ', c.last_name) LIKE ? OR a.account_no LIKE ? OR c.id_number LIKE ? OR c.phone LIKE ?)";
-    $args  = ["%$q%", "%$q%", "%$q%", "%$q%"];
+    $sql .= " AND (CONCAT(c.first_name,' ',c.last_name) LIKE ? OR a.account_no LIKE ? OR c.id_number LIKE ? OR c.phone LIKE ?)";
+    $args = ["%$q%","%$q%","%$q%","%$q%"];
 }
-if (in_array($st, ['Pending', 'Active', 'Closed', 'Rejected'], true)) {
-    $sql  .= " AND a.status=?";
-    $args[] = $st;
-}
-$s = $db->prepare($sql . " ORDER BY a.id DESC LIMIT 200");
+if (in_array($st,['Pending','Active','Closed','Rejected'],true)) { $sql.=" AND a.status=?"; $args[]=$st; }
+if ($tp !== '') { $sql.=" AND a.type=?"; $args[]=$tp; }
+$s=$db->prepare($sql." ORDER BY a.id DESC LIMIT 200");
 $s->execute($args);
-$rows = $s->fetchAll(PDO::FETCH_ASSOC);
+$rows=$s->fetchAll(PDO::FETCH_ASSOC);
 
-$status_cls = [
-    'Active'   => 't-ok',
-    'Funded'   => 't-ok',
-    'Pending'  => 't-warn',
-    'Closed'   => 't-mute',
-    'Rejected' => 't-bad',
-];
+$types = array_keys(ACCOUNT_TYPES);
+$status_cls=['Active'=>'t-ok','Pending'=>'t-brand','Closed'=>'t-mute','Rejected'=>'t-bad'];
 
 page_top('Accounts');
 ?>
 <div class="page-heading">
   <div>
-    <h1><?= icon('accounts') ?> Accounts</h1>
-    <p class="sub">Search and browse all savings accounts at the branch.</p>
+    <h1>Accounts</h1>
+    <p class="sub">Manage and view all savings accounts.</p>
+  </div>
+  <div class="page-heading-actions">
+    <?php if(role()==='officer'): ?>
+      <a class="btn gold" href="new.php"><?= svg_icon('plus') ?> New Account</a>
+    <?php endif; ?>
   </div>
 </div>
 
 <!-- Filter bar -->
 <div class="filter-bar">
-  <form method="get" style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;width:100%;">
+  <form method="get" style="display:contents;">
     <label style="flex:2;min-width:180px;margin-bottom:0;">
-      Search
-      <input name="q" value="<?= e($q) ?>" placeholder="Name, account number, ID or phone" style="margin-top:4px;">
+      <div class="input-wrap" style="margin-top:0;">
+        <span class="input-icon"><?= svg_icon('search') ?></span>
+        <input name="q" value="<?= e($q) ?>"
+               placeholder="Search by account number, customer name or ID..."
+               style="margin-top:0;padding-left:34px;">
+      </div>
     </label>
-    <label style="flex:1;min-width:140px;margin-bottom:0;">
-      Status
-      <select name="status" style="margin-top:4px;">
-        <option value="">All statuses</option>
-        <?php foreach (['Pending', 'Active', 'Closed', 'Rejected'] as $o): ?>
-          <option<?= $st === $o ? ' selected' : '' ?>><?= $o ?></option>
+    <label style="flex:1;min-width:130px;margin-bottom:0;">
+      All Types
+      <select name="type" style="margin-top:4px;">
+        <option value="">All Types</option>
+        <?php foreach($types as $t): ?>
+          <option<?= $tp===$t?' selected':'' ?>><?= e($t) ?></option>
         <?php endforeach; ?>
       </select>
     </label>
-    <button class="btn" type="submit" style="margin-bottom:0;"><?= icon('audit') ?> Search</button>
-    <?php if ($q || $st): ?>
-      <a class="btn alt sm" href="accounts.php">Clear</a>
+    <label style="flex:1;min-width:120px;margin-bottom:0;">
+      All Statuses
+      <select name="status" style="margin-top:4px;">
+        <option value="">All Statuses</option>
+        <?php foreach(['Pending','Active','Closed','Rejected'] as $o): ?>
+          <option<?= $st===$o?' selected':'' ?>><?= $o ?></option>
+        <?php endforeach; ?>
+      </select>
+    </label>
+    <button class="btn" type="submit" style="align-self:flex-end;"><?= svg_icon('search') ?> Search</button>
+    <?php if($q||$st||$tp): ?>
+      <a class="btn alt sm" href="accounts.php" style="align-self:flex-end;">Clear</a>
     <?php endif; ?>
   </form>
 </div>
 
 <div class="card">
-  <?php if (!$rows): ?>
-    <p class="empty"><?= icon('accounts') ?> No accounts match your search.</p>
+  <?php if(!$rows): ?>
+    <p class="empty">No accounts match your search.</p>
   <?php else: ?>
-    <p class="sub" style="margin-bottom:12px;">Showing <?= count($rows) ?> result(s)</p>
-    <ul class="acct-list">
-    <?php foreach ($rows as $a):
-      $initials = strtoupper(substr($a['first_name'], 0, 1) . substr($a['last_name'], 0, 1));
-      $cls      = $status_cls[$a['status']] ?? 't-mute';
-    ?>
-      <li class="acct-item">
-        <div class="acct-avatar"><?= e($initials) ?></div>
-        <div class="acct-info">
-          <a href="account.php?id=<?= (int)$a['id'] ?>"><?= e($a['first_name'] . ' ' . $a['last_name']) ?></a>
-          <div class="acct-meta">
-            <?= $a['account_no'] ? 'Account ' . e($a['account_no']) . ' &middot; ' : '' ?>
-            <?= e($a['cif']) ?> &middot; <?= e($a['type']) ?>
-          </div>
-        </div>
-        <div class="acct-right">
-          <div style="display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;">
-            <?php if ($a['funding_status'] === 'Overdue'): ?>
-              <span class="tag t-bad">Funding Overdue</span>
-            <?php elseif ($a['funding_status'] === 'Awaiting funding' && $a['status'] === 'Active'): ?>
-              <span class="tag t-warn">Awaiting Funding</span>
-            <?php endif; ?>
-            <span class="tag <?= $cls ?>"><?= e($a['status']) ?></span>
-          </div>
-          <?php if ($a['status'] === 'Active'): ?>
-            <div class="acct-bal">ETB <?= birr($a['balance']) ?></div>
-          <?php endif; ?>
-        </div>
-      </li>
-    <?php endforeach; ?>
-    </ul>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">Showing <?= count($rows) ?> result(s)</div>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Account No.</th>
+            <th>Customer Name</th>
+            <th>ID Number</th>
+            <th>Account Type</th>
+            <th>Opened Date</th>
+            <th class="num">Balance (ETB)</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        <?php foreach($rows as $a):
+          $cls=$status_cls[$a['status']]??'t-mute';
+        ?>
+          <tr>
+            <td style="font-weight:700;font-family:monospace;font-size:12px;">
+              <?= $a['account_no']?e($a['account_no']):'<span class="muted">Pending</span>' ?>
+            </td>
+            <td>
+              <a href="account.php?id=<?= (int)$a['id'] ?>" style="font-weight:700;color:var(--ink);">
+                <?= e($a['first_name'].' '.$a['last_name']) ?>
+              </a><br>
+              <span style="font-size:11px;color:var(--muted);"><?= e($a['cif']) ?></span>
+            </td>
+            <td style="font-size:12px;color:var(--muted);"><?= e($a['id_number']) ?></td>
+            <td style="font-size:12px;"><?= e($a['type']) ?></td>
+            <td style="font-size:12px;color:var(--muted);"><?= e($a['opened_at']?:'—') ?></td>
+            <td class="num"><?= $a['status']==='Active'?birr($a['balance']):'—' ?></td>
+            <td>
+              <?php if($a['funding_status']==='Overdue'): ?>
+                <span class="tag t-bad" style="display:block;margin-bottom:3px;">Overdue</span>
+              <?php elseif($a['funding_status']==='Awaiting funding'&&$a['status']==='Active'): ?>
+                <span class="tag t-warn" style="display:block;margin-bottom:3px;">Awaiting Funding</span>
+              <?php endif; ?>
+              <span class="tag <?= $cls ?>"><?= e($a['status']) ?></span>
+            </td>
+            <td>
+              <a class="btn xs <?= $a['status']==='Pending'?'gold':'' ?>"
+                 href="<?= $a['status']==='Pending'?'approvals.php':'account.php?id='.(int)$a['id'] ?>">
+                <?= $a['status']==='Pending'?'Review':'View' ?>
+              </a>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+        </tbody>
+      </table>
+    </div>
   <?php endif; ?>
 </div>
 <?php page_bottom(); ?>

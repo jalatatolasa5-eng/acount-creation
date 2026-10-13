@@ -14,50 +14,82 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     flash('Wrong username or password.', 'err');
     redirect('login.php');
 }
-page_top('Staff login');
+page_top('Staff Login');
 ?>
-<!-- Flash messages on login page -->
-<?php foreach ($_SESSION['flash'] ?? [] as [$t, $m]): ?>
-<div class="msg <?= $t === 'err' ? 'msg-err' : 'msg-ok' ?>" role="alert" style="width:100%;max-width:400px;margin-bottom:8px;">
-  <?= icon($t === 'err' ? 'warn' : 'ok-ic') ?> <?= e($m) ?>
-</div>
-<?php endforeach; $_SESSION['flash'] = []; ?>
 
-<div class="login-card">
-  <!-- Logo -->
-  <div class="login-logo">
-    <div class="login-logo-icon">
-      <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <path d="M4 21l12-11 12 11" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="7" y="16" width="3.5" height="7" fill="#fff" rx="1"/>
-        <rect x="14.25" y="16" width="3.5" height="7" fill="#fff" rx="1"/>
-        <rect x="21.5" y="16" width="3.5" height="7" fill="#fff" rx="1"/>
-        <path d="M4 21h24" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+<!-- LEFT PANEL -->
+<div class="login-left">
+  <div class="login-brand">
+    <div class="login-brand-icon">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <path d="M4 27L20 10l16 17" stroke="#1a0533" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="7"  y="20" width="5" height="10" fill="#1a0533" rx="1"/>
+        <rect x="17.5" y="20" width="5" height="10" fill="#1a0533" rx="1"/>
+        <rect x="28" y="20" width="5" height="10" fill="#1a0533" rx="1"/>
+        <path d="M4 27h32" stroke="#1a0533" stroke-width="2.5" stroke-linecap="round"/>
       </svg>
     </div>
-    <div class="login-logo-text">
-      <strong>Commercial Bank of Ethiopia</strong>
-      <span>Wayu Branch &mdash; Savings Back-office</span>
-    </div>
+    <h1>CBE<br>Savings Account System</h1>
+    <p>Secure &nbsp;&middot;&nbsp; Reliable &nbsp;&middot;&nbsp; For a Brighter Future</p>
   </div>
 
-  <h2>Staff Login</h2>
+  <div class="login-tagline">
+    <span>Secure</span>
+    <span>Reliable</span>
+    <span>Modern</span>
+  </div>
 
-  <form method="post" novalidate>
-    <?= csrf_field() ?>
-    <label for="username">Username
-      <input id="username" name="username" required autofocus autocomplete="username"
-             placeholder="Enter your username">
-    </label>
-    <label for="password">Password
-      <input id="password" name="password" type="password" required
-             autocomplete="current-password" placeholder="Enter your password">
-    </label>
-    <button class="btn" type="submit" style="width:100%;margin-top:4px;justify-content:center;">
-      <?= icon('user') ?> Log in
-    </button>
-  </form>
+  <div class="login-eth">
+    Commercial Bank of Ethiopia<br>
+    ንግድ ባንክ ኢትዮጵያ
+  </div>
 </div>
 
-<p class="login-demo">Demo credentials: <strong>officer / officer123</strong> &nbsp;&middot;&nbsp; <strong>supervisor / super123</strong></p>
+<!-- RIGHT PANEL -->
+<div class="login-right">
+  <div class="login-form-wrap">
+    <h2>Welcome Back</h2>
+    <p class="sub">Sign in to access the savings account system.</p>
+
+    <?php foreach ($_SESSION['flash'] ?? [] as [$t, $m]): ?>
+      <div class="msg <?= $t === 'err' ? 'msg-err' : 'msg-ok' ?>" role="alert" style="margin-bottom:12px;">
+        <?= svg_icon($t === 'err' ? 'warn' : 'ok-ic') ?> <?= e($m) ?>
+      </div>
+    <?php endforeach; $_SESSION['flash'] = []; ?>
+
+    <div class="card">
+      <form method="post" novalidate>
+        <?= csrf_field() ?>
+
+        <label for="username">Username
+          <div class="input-wrap">
+            <span class="input-icon"><?= svg_icon('user') ?></span>
+            <input id="username" name="username" required autofocus autocomplete="username"
+                   placeholder="Enter your username">
+          </div>
+        </label>
+
+        <label for="password">Password
+          <div class="input-wrap">
+            <span class="input-icon"><?= svg_icon('audit') ?></span>
+            <input id="password" name="password" type="password" required
+                   autocomplete="current-password" placeholder="Enter your password">
+          </div>
+        </label>
+
+        <button class="btn gold" type="submit" style="width:100%;justify-content:center;margin-top:6px;padding:11px;">
+          Sign In &nbsp;→
+        </button>
+      </form>
+    </div>
+
+    <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:12px;">
+      For support, contact your system administrator.
+    </p>
+    <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:4px;">
+      Demo: <strong>officer / officer123</strong> &nbsp;&middot;&nbsp; <strong>supervisor / super123</strong>
+    </p>
+  </div>
+</div>
+
 <?php page_bottom(); ?>
