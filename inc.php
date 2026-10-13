@@ -2,7 +2,7 @@
 // Shared setup: session, database (SQLite, nothing to install), helpers and page layout.
 require_once __DIR__ . '/lib.php';
 session_start();
-$db = db_connect(getenv('ACCT_DB') ?: __DIR__ . '/data.sqlite');
+$db = db_connect(getenv('ACCT_DB') ?: (is_file(__DIR__ . '/use_mysql.txt') ? 'mysql' : __DIR__ . '/data.sqlite'));
 
 function e($v) { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); }
 function csrf() { if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(16)); return $_SESSION['csrf']; }

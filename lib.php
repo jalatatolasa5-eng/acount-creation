@@ -17,7 +17,20 @@ const CARD_FEE_OPTIONS = ['50' => 'ETB 50 (savings Key Facts Statement)', '115' 
 
 function birr($v) { return number_format((float)$v, 2); }
 
+function setting_upsert_sql(PDO $db): string {
+    return $db->getAttribute(PDO::ATTR_DRIVER_NAME) === 'mysql'
+        ? "INSERT INTO settings(`key`,`value`) VALUES('today',?) ON DUPLICATE KEY UPDATE `value`=VALUES(`value`)"
+        : "INSERT INTO settings(key,value) VALUES('today',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value";
+}
+
 function db_connect(string $path): PDO {
+    if ($path === 'mysql') {
+        $db = new PDO('mysql:host=127.0.0.1;dbname=cbe_savings;charset=utf8mb4', 'root', '');
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        return $db;
+    }
     $db = new PDO('sqlite:' . $path);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->exec("
@@ -54,7 +67,7 @@ function audit(PDO $db, ?int $uid, string $action, string $detail = ''): void {
 
 // ---- Dates (the demo has a movable "business date" so 15-day, 6-month and month-end rules can be shown) ----
 function today(PDO $db): string {
-    $s = $db->query("SELECT value FROM settings WHERE key='today'")->fetchColumn();
+    $s = $db->query("SELECT value FROM settings WHERE `key`='today'")->fetchColumn();
     return $s ?: date('Y-m-d');
 }
 function add_days(string $d, int $n): string { return (new DateTime($d))->modify(($n >= 0 ? '+' : '') . "$n days")->format('Y-m-d'); }
@@ -211,7 +224,7 @@ function advance_date(PDO $db, string $new, ?int $uid): array {
     $m = fn($d) => (int)substr($d, 0, 4) * 12 + (int)substr($d, 5, 2);
     if ($m($new) - $m($t) > 1) return [false, 'Move forward one month at a time so month-end interest is not skipped.'];
     if ($m($new) > $m($t) && interest_pending_accounts($db)) return [false, 'Run this month\'s interest before moving into the next month.'];
-    $db->prepare("INSERT INTO settings(key,value) VALUES('today',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value")->execute([$new]);
+    $db->prepare(setting_upsert_sql($db))->execute([$new]);
     audit($db, $uid, 'set_date', "$t -> $new");
     return [true, "Demo date is now $new."];
 }
@@ -327,6 +340,6 @@ function reject_account(PDO $db, int $id, string $reason, int $uid): array {
 }
 
 function reset_demo(PDO $db, ?int $uid): void {
-    $db->exec("DELETE FROM transactions; DELETE FROM accounts; DELETE FROM customers; DELETE FROM settings; DELETE FROM audit_log; DELETE FROM sqlite_sequence WHERE name IN ('transactions','accounts','customers','audit_log');");
+    if ($db->getAttribute(PDO::ATTR_DRIVER_NAME) === 'mysql') { $db->exec("DELETE FROM transactions; DELETE FROM accounts; DELETE FROM customers; DELETE FROM settings; DELETE FROM audit_log;"); } else { $db->exec("DELETE FROM transactions; DELETE FROM accounts; DELETE FROM customers; DELETE FROM settings; DELETE FROM audit_log; DELETE FROM sqlite_sequence WHERE name IN ('transactions','accounts','customers','audit_log');"); }
     audit($db, $uid, 'reset', 'Demo data cleared');
 }

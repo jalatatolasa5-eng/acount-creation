@@ -5,7 +5,7 @@ require_login();
 $q = trim($_GET['q'] ?? ''); $st = $_GET['status'] ?? '';
 $sql = "SELECT a.*, c.first_name, c.last_name, c.cif FROM accounts a JOIN customers c ON c.id=a.customer_id WHERE 1=1";
 $args = [];
-if ($q !== '') { $sql .= " AND (c.first_name || ' ' || c.last_name LIKE ? OR a.account_no LIKE ? OR c.id_number LIKE ? OR c.phone LIKE ?)"; $args = ["%$q%", "%$q%", "%$q%", "%$q%"]; }
+if ($q !== '') { $sql .= " AND (CONCAT(c.first_name, ' ', c.last_name) LIKE ? OR a.account_no LIKE ? OR c.id_number LIKE ? OR c.phone LIKE ?)"; $args = ["%$q%", "%$q%", "%$q%", "%$q%"]; }
 if (in_array($st, ['Pending', 'Active', 'Closed', 'Rejected'], true)) { $sql .= " AND a.status=?"; $args[] = $st; }
 $s = $db->prepare($sql . " ORDER BY a.id DESC LIMIT 200");
 $s->execute($args);
