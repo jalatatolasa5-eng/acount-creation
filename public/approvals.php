@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ? approve_account($db,$id,me())
         : reject_account($db,$id,$_POST['reason']??'',me());
     flash($msg,$ok?'ok':'err');
-    redirect('/public/approvals.php');
+    redirect(url('approvals.php'));
 }
 
 $rows = $db->query(

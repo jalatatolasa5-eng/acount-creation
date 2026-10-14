@@ -6,7 +6,7 @@ $id = (int)($_GET['id'] ?? $_POST['id'] ?? 0);
 $a  = get_account($db,$id);
 if (!$a) {
     http_response_code(404); page_top('Not found');
-    echo '<p class="empty">Account not found. <a href="/public/accounts.php">Back to accounts</a></p>';
+    echo '<p class="empty">Account not found. <a href="' . url('accounts.php') . '">Back to accounts</a></p>';
     page_bottom(); exit;
 }
 
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
     elseif  ($act==='close'    && role()==='supervisor') $r = close_account($db,$id,$_POST['reason']??'',me());
     else    $r = [false,'That action is not available for your role or this account.'];
     flash($r[1],$r[0]?'ok':'err');
-    redirect('/public/account.php?id='.$id);
+    redirect(url('account.php?id='.$id));
 }
 
 $tx     = $db->prepare("SELECT * FROM transactions WHERE account_id=? ORDER BY id");
@@ -178,5 +178,5 @@ page_top('Account '.($a['account_no']?:$a['cif']));
 <!-- Pass balance to app.js via data attribute -->
 <div id="account-data" data-balance="<?= (float)$a['balance'] ?>" hidden></div>
 <script>window.CBE_ACCOUNT_BALANCE = <?= (float)$a['balance'] ?>;</script>
-<script src="/public/assets/js/app.js"></script>
+<script src="<?= url('assets/js/app.js') ?>"></script>
 <?php page_bottom(); ?>

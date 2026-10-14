@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $r = [true, 'Demo data cleared and date reset.'];
     } else $r = [false, 'Nothing was done.'];
     flash($r[1], $r[0] ? 'ok' : 'err');
-    redirect('/public/admin.php');
+    redirect(url('admin.php'));
 }
 
 $t         = today($db);

@@ -22,7 +22,7 @@
         </div>
         <span class="<?= $pill_cls ?>"><?= e($role_lbl) ?></span>
       </div>
-      <a href="/public/logout.php" class="topbar-logout">
+      <a href="<?= url('logout.php') ?>" class="topbar-logout">
         <?= svg_icon('logout') ?> Logout
       </a>
     <?php endif; ?>

@@ -12,10 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user'] = $u['username'];
         $_SESSION['role'] = $u['role'];
         log_action('login');
-        redirect('/public/dashboard.php');
+        redirect(url('dashboard.php'));
     }
     flash('Wrong username or password.', 'err');
-    redirect('/public/login.php');
+    redirect(url('login.php'));
 }
 
 page_top('Staff Login');

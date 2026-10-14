@@ -28,9 +28,9 @@ page_top('Dashboard');
   </div>
   <div class="page-heading-actions">
     <?php if (role() === 'officer'): ?>
-      <a class="btn gold" href="/public/new.php"><?= svg_icon('plus') ?> New Application</a>
+      <a class="btn gold" href="<?= url('new.php') ?>"><?= svg_icon('plus') ?> New Application</a>
     <?php else: ?>
-      <a class="btn gold" href="/public/approvals.php"><?= svg_icon('check') ?> Review Approvals</a>
+      <a class="btn gold" href="<?= url('approvals.php') ?>"><?= svg_icon('check') ?> Review Approvals</a>
     <?php endif; ?>
   </div>
 </div>
@@ -64,17 +64,17 @@ page_top('Dashboard');
 <div class="banner bad" style="margin-bottom:14px;">
   <?= svg_icon('warn') ?>
   <div><strong><?= $overdue ?> account(s) missed the 15-day funding deadline.</strong>
-  <a href="/public/admin.php">Run the deadline check</a> to flag them.</div>
+  <a href="<?= url('admin.php') ?>">Run the deadline check</a> to flag them.</div>
 </div>
 <?php endif; ?>
 
 <div class="card">
   <div class="card-header">
     <h2>Recent Accounts</h2>
-    <a class="btn sm alt" href="/public/accounts.php"><?= svg_icon('accounts') ?> View All</a>
+    <a class="btn sm alt" href="<?= url('accounts.php') ?>"><?= svg_icon('accounts') ?> View All</a>
   </div>
   <?php if (!$recent): ?>
-    <p class="empty">No accounts yet. <a href="/public/new.php">Create the first application.</a></p>
+    <p class="empty">No accounts yet. <a href="<?= url('new.php') ?>">Create the first application.</a></p>
   <?php else: ?>
   <div class="scroll">
     <table>
@@ -89,7 +89,7 @@ page_top('Dashboard');
           <td style="font-weight:700;font-family:monospace;font-size:12px;">
             <?= $a['account_no'] ? e($a['account_no']) : '<span class="muted">—</span>' ?>
           </td>
-          <td><a href="/public/account.php?id=<?= (int)$a['id'] ?>" style="font-weight:700;color:var(--ink);">
+          <td><a href="<?= url('account.php?id=' . (int)$a['id']) ?>" style="font-weight:700;color:var(--ink);">
             <?= e($a['first_name'].' '.$a['last_name']) ?></a></td>
           <td style="font-size:12px;color:var(--muted);"><?= e($a['id_number']) ?></td>
           <td style="font-size:12px;"><?= e($a['type']) ?></td>
@@ -97,7 +97,7 @@ page_top('Dashboard');
           <td class="num"><?= $a['status']==='Active' ? birr($a['balance']) : '—' ?></td>
           <td><span class="tag <?= $cls ?>"><?= e($a['status']) ?></span></td>
           <td><a class="btn xs <?= $a['status']==='Pending'?'gold':'' ?>"
-                 href="<?= $a['status']==='Pending'?'/public/approvals.php':'/public/account.php?id='.(int)$a['id'] ?>">
+                 href="<?= $a['status']==='Pending' ? url('approvals.php') : url('account.php?id='.(int)$a['id']) ?>">
             <?= $a['status']==='Pending'?'Review':'View' ?></a></td>
         </tr>
       <?php endforeach; ?>
@@ -106,7 +106,7 @@ page_top('Dashboard');
   </div>
   <p style="font-size:11px;color:var(--muted);margin-top:8px;">
     Showing <?= count($recent) ?> of <?= $n("SELECT COUNT(*) FROM accounts") ?> accounts.
-    <a href="/public/accounts.php">View all →</a>
+    <a href="<?= url('accounts.php') ?>">View all →</a>
   </p>
   <?php endif; ?>
 </div>

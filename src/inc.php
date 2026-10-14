@@ -83,7 +83,7 @@ function role(): string
 
 function require_login(array $roles = []): void
 {
-    if (empty($_SESSION['uid'])) redirect('/public/login.php');
+    if (empty($_SESSION['uid'])) redirect(url('login.php'));
     if ($roles && !in_array($_SESSION['role'], $roles, true)) {
         http_response_code(403);
         exit('Access denied for your role.');
@@ -106,7 +106,14 @@ function field_err(array $errors, string $k): string
         . '</div>';
 }
 
-// ── Page layout ───────────────────────────────────────────────────────────────
+// ── URL helper ────────────────────────────────────────────────────────────────
+// Always use url('path') instead of hardcoding /public/... links.
+function url(string $path = ''): string {
+    global $cfg;
+    $base = rtrim($cfg['base_url'] ?? '', '/');
+    $path = $path === '' ? '' : '/' . ltrim($path, '/');
+    return $base . $path;
+}
 /**
  * Renders the full page shell: <head>, sidebar, topbar, flash messages.
  * Each view partial lives in src/views/layout/.

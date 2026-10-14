@@ -28,7 +28,7 @@ page_top('Accounts');
   <div><h1>Accounts</h1><p class="sub">Search and manage all savings accounts.</p></div>
   <?php if(role()==='officer'): ?>
   <div class="page-heading-actions">
-    <a class="btn gold" href="/public/new.php"><?= svg_icon('plus') ?> New Account</a>
+    <a class="btn gold" href="<?= url('new.php') ?>"><?= svg_icon('plus') ?> New Account</a>
   </div>
   <?php endif; ?>
 </div>
@@ -60,7 +60,7 @@ page_top('Accounts');
     </label>
     <button class="btn" type="submit" style="align-self:flex-end;"><?= svg_icon('search') ?> Search</button>
     <?php if($q||$st||$tp): ?>
-      <a class="btn alt sm" href="/public/accounts.php" style="align-self:flex-end;">Clear</a>
+      <a class="btn alt sm" href="<?= url('accounts.php') ?>" style="align-self:flex-end;">Clear</a>
     <?php endif; ?>
   </form>
 </div>
@@ -83,7 +83,7 @@ page_top('Accounts');
           <td style="font-weight:700;font-family:monospace;font-size:12px;">
             <?= $a['account_no']?e($a['account_no']):'<span class="muted">Pending</span>' ?></td>
           <td>
-            <a href="/public/account.php?id=<?= (int)$a['id'] ?>" style="font-weight:700;color:var(--ink);">
+            <a href="<?= url('account.php?id=' . (int)$a['id']) ?>" style="font-weight:700;color:var(--ink);">
               <?= e($a['first_name'].' '.$a['last_name']) ?>
             </a><br>
             <span style="font-size:11px;color:var(--muted);"><?= e($a['cif']) ?></span>
@@ -101,7 +101,7 @@ page_top('Accounts');
             <span class="tag <?= $cls ?>"><?= e($a['status']) ?></span>
           </td>
           <td><a class="btn xs <?= $a['status']==='Pending'?'gold':'' ?>"
-                 href="<?= $a['status']==='Pending'?'/public/approvals.php':'/public/account.php?id='.(int)$a['id'] ?>">
+                 href="<?= $a['status']==='Pending' ? url('approvals.php') : url('account.php?id='.(int)$a['id']) ?>">
             <?= $a['status']==='Pending'?'Review':'View' ?></a></td>
         </tr>
       <?php endforeach; ?>

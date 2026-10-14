@@ -6,7 +6,7 @@ $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     check_csrf();
     [$ok, $res, $aid] = submit_application($db, $_POST, me());
-    if ($ok) { flash($res); redirect('/public/account.php?id=' . $aid); }
+    if ($ok) { flash($res); redirect(url('account.php?id=' . $aid)); }
     $errors = $res;
     flash('Fix the highlighted fields and resubmit.', 'err');
 }
@@ -164,7 +164,7 @@ page_top('New Application');
 
   <div style="display:flex;gap:10px;">
     <button class="btn gold" type="submit"><?= svg_icon('check') ?> Submit for Approval</button>
-    <a class="btn alt" href="/public/dashboard.php">Cancel</a>
+    <a class="btn alt" href="<?= url('dashboard.php') ?>">Cancel</a>
   </div>
 </form>
 
