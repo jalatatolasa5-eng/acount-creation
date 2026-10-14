@@ -1,4 +1,9 @@
-<?php require_once __DIR__ . '/../src/inc.php'; page_top('Home'); ?>
+<?php
+require_once __DIR__ . '/../src/inc.php';
+// Logged-in staff go straight to the dashboard
+if (!empty($_SESSION['uid'])) redirect(url('dashboard.php'));
+page_top('Home');
+?>
 
 <div class="page-heading">
   <div>
@@ -16,7 +21,6 @@
   <div class="hero-actions">
     <a class="btn gold" href="<?= url('guide.php') ?>"><?= svg_icon('guide') ?> Applicant Guide</a>
     <a class="btn alt"  href="<?= url('tariff.php') ?>"><?= svg_icon('tariff') ?> Rates &amp; Fees</a>
-    <a class="btn alt"  href="<?= url('requirements.php') ?>"><?= svg_icon('req') ?> Requirements</a>
   </div>
 </div>
 
@@ -59,13 +63,6 @@
     <h3>Rates &amp; Fees</h3>
     <p>Published rates, charges, and where the sources disagree.</p>
     <span class="feature-card-link" style="color:var(--gold-dk);">View tariff →</span>
-  </a>
-
-  <a href="<?= url('requirements.php') ?>" class="feature-card">
-    <div class="feature-card-icon" style="background:var(--info-bg);color:var(--info);"><?= svg_icon('req') ?></div>
-    <h3>Requirements &amp; Use Cases</h3>
-    <p>Every functional requirement drawn from the study, with the page that implements it.</p>
-    <span class="feature-card-link" style="color:var(--info);">View requirements →</span>
   </a>
 
   <a href="<?= url('login.php') ?>" class="feature-card feature-card-dark">

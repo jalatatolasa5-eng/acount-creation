@@ -1,6 +1,7 @@
 <?php
 $cur    = $data['cur_page'];
 $is_sup = $data['role'] === 'supervisor';
+$logged = !empty($_SESSION['uid']);
 
 function _nav(string $href, string $label, string $icon, string $cur, int $badge = 0): string {
     $active = $cur === $href ? ' active' : '';
@@ -11,7 +12,7 @@ function _nav(string $href, string $label, string $icon, string $cur, int $badge
 ?>
 <nav class="sidebar" aria-label="Main navigation">
 
-  <a class="sidebar-logo" href="<?= url('index.php') ?>">
+  <a class="sidebar-logo" href="<?= url($logged ? 'dashboard.php' : 'index.php') ?>">
     <div class="sidebar-logo-icon">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path d="M2 13l8-8 8 8" stroke="#1a0533" stroke-width="2" fill="none"
@@ -28,27 +29,38 @@ function _nav(string $href, string $label, string $icon, string $cur, int $badge
   </a>
 
   <ul class="sidebar-nav">
-    <?= _nav('index.php', 'Dashboard', 'home', $cur) ?>
 
-    <?php if (!empty($_SESSION['uid'])): ?>
+    <?php if ($logged): ?>
+
+      <?= _nav('dashboard.php', 'Dashboard',       'home',     $cur) ?>
+      <?= _nav('accounts.php',  'Accounts',        'accounts', $cur) ?>
+      <?= _nav('tariff.php',    'Rates &amp; Fees', 'tariff',   $cur) ?>
+
       <?php if (!$is_sup): ?>
+        <!-- Officer (Maker) only -->
         <?= _nav('new.php', 'New Application', 'plus', $cur) ?>
       <?php endif; ?>
-      <?= _nav('approvals.php', 'Approvals', 'check',    $cur, $data['pending']) ?>
-      <?= _nav('accounts.php',  'Accounts',   'accounts', $cur) ?>
-      <?= _nav('tariff.php',    'Tariff',      'tariff',   $cur) ?>
+
       <?php if ($is_sup): ?>
-        <?= _nav('audit.php', 'Audit', 'audit', $cur) ?>
-        <?= _nav('admin.php', 'Admin', 'admin', $cur) ?>
+        <!-- Supervisor (Checker) only -->
+        <?= _nav('approvals.php', 'Approvals', 'check', $cur, $data['pending']) ?>
+        <?= _nav('admin.php',     'Month-end &amp; Admin', 'admin', $cur) ?>
+        <?= _nav('audit.php',     'Audit Trail',  'audit', $cur) ?>
       <?php endif; ?>
+
     <?php else: ?>
-      <?= _nav('guide.php',        'Guide',        'guide', $cur) ?>
-      <?= _nav('tariff.php',       'Tariff',        'tariff', $cur) ?>
-      <?= _nav('requirements.php', 'Requirements',  'req',   $cur) ?>
+
+      <!-- Public (not logged in) -->
+      <?= _nav('index.php',        'Home',          'home',  $cur) ?>
+      <?= _nav('guide.php',        'Applicant Guide','guide', $cur) ?>
+      <?= _nav('tariff.php',       'Rates &amp; Fees','tariff',$cur) ?>
+      <?= _nav('login.php',        'Staff Login',   'user',  $cur) ?>
+
     <?php endif; ?>
+
   </ul>
 
-  <?php if (!empty($_SESSION['uid'])): ?>
+  <?php if ($logged): ?>
   <div class="sidebar-footer">
     <div style="font-size:11px;color:var(--sb-muted);margin-bottom:3px;">Signed in as</div>
     <div style="color:var(--sb-ink);font-weight:700;font-size:12px;"><?= e($data['user']) ?></div>
