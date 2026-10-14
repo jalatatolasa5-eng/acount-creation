@@ -965,3 +965,22 @@ td.debit  { color: var(--bad); }
   body { background: #fff; color: #000; font-size: 11px; }
   .card { border: 1px solid #ccc; break-inside: avoid; }
 }
+
+/* ── Feature cards (home page) ─────────────────────────────── */
+.feature-card {
+  display:block;
+  background:var(--surface);
+  border:1.5px solid var(--line);
+  border-radius:12px;
+  padding:20px;
+  text-decoration:none;
+  transition:border-color .15s, box-shadow .15s;
+  cursor:pointer;
+}
+.feature-card:hover { border-color:var(--brand); box-shadow:0 4px 16px rgba(107,33,168,.12); text-decoration:none; }
+.feature-card-dark  { background:linear-gradient(135deg,var(--brand-dk),var(--brand)); border-color:var(--brand); }
+.feature-card-dark:hover { filter:brightness(1.1); }
+.feature-card-icon  { width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px; }
+.feature-card h3    { font-size:14px;font-weight:800;color:var(--ink);margin-bottom:6px; }
+.feature-card p     { font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:14px; }
+.feature-card-link  { font-size:12px;font-weight:700;display:flex;align-items:center;gap:4px; }

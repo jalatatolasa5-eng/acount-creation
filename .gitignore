@@ -1,3 +1,23 @@
-data.sqlite
-*.sqlite
+# DB credentials — never commit real passwords
+src/config.php
+
+# Environment file
+.env
+
+# SQLite database (contains live data)
+database/data.sqlite
+
+# Dump files
+database/cbe_savings_dump.sql
+
+# Temporary / generated
+dump.php
+*.off
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
