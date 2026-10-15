@@ -145,6 +145,87 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
  .t{padding:0}
  footer .wrap{flex-direction:column;text-align:center}
 }
+.flow{background:linear-gradient(#fff,#eef5f2);overflow:hidden}
+.fh{text-align:center;margin-bottom:64px}.fh .lead{margin:0 auto}
+.rail{position:relative;max-width:1000px;margin:0 auto}
+.rail:before,.rail:after{content:"";position:absolute;left:50%;top:0;width:4px;margin-left:-2px;border-radius:4px}
+.rail:before{bottom:0;background:#d9e5e1}
+.rail:after{height:var(--fp,0%);background:linear-gradient(var(--gold),var(--g2))}
+.fs{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center;margin-bottom:90px}
+.fs:last-child{margin-bottom:0}
+.fm{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:#fff;border:4px solid #d9e5e1;display:grid;place-items:center;font-weight:800;color:var(--mut);z-index:2;transition:.5s}
+.fs.vis .fm{background:var(--g);border-color:var(--gold);color:#fff;transform:scale(1.12);box-shadow:0 0 0 10px #f5b82e30}
+.fc,.fv{opacity:0;transition:opacity .9s,transform .9s}
+.fc{transform:translateX(-50px)}.fv{transform:translateX(50px)}
+.fs:nth-child(even) .fc{order:2;transform:translateX(50px)}
+.fs:nth-child(even) .fv{order:1;transform:translateX(-50px)}
+.fs.vis .fc,.fs.vis .fv{opacity:1;transform:none}
+.fs.vis .fv{transition-delay:.2s}
+.fc h3{font-size:26px;margin:6px 0 10px;line-height:1.2}.fc p{color:var(--mut)}
+.case{margin-top:18px;padding:14px 16px;border-left:4px solid var(--gold);background:#fff;border-radius:0 12px 12px 0;font-size:14px;box-shadow:0 6px 18px #0b3d3a10}
+.case b{color:var(--g2)}
+.scene{position:relative;aspect-ratio:4/3;border-radius:26px;overflow:hidden;box-shadow:0 22px 50px #0b3d3a30;display:grid;place-items:center}
+.scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:5}
+.s1{background:linear-gradient(135deg,#0f5a52,#2f8f6a)}
+.s2{background:linear-gradient(135deg,#f5b82e,#f3d98a)}
+.s3{background:linear-gradient(135deg,#12302d,#1e6b5c)}
+.s4{background:linear-gradient(135deg,#e4f1ed,#bfe3d3)}
+.ph{width:170px;height:290px;background:#fff;border-radius:28px;border:6px solid #12302d;padding:22px 14px;animation:bob 5s ease-in-out infinite}
+.ph small{font-size:10px;font-weight:700;color:var(--g2)}
+.fl{height:11px;border-radius:6px;background:#dbe7e3;margin:12px 0 4px;position:relative;overflow:hidden}
+.fl:after{content:"";position:absolute;inset:0;width:0;background:var(--g2)}
+.fs.vis .fl:after{animation:type 1.1s var(--d) steps(14) forwards}
+.ph .chip{margin-top:14px;padding:8px;border-radius:10px;background:#e4f1ed;font-size:10px;font-weight:700;color:var(--g2);text-align:center;border:2px solid var(--gold);opacity:0}
+.fs.vis .ph .chip{animation:pop .5s 2.3s forwards}
+.ph .go{margin-top:12px;height:30px;border-radius:15px;background:var(--gold);color:var(--g);font-size:11px;font-weight:700;display:grid;place-items:center}
+.docs{position:relative;width:300px;height:240px}
+.dc{position:absolute;width:150px;height:100px;background:#fff;border-radius:12px;padding:12px;box-shadow:0 12px 26px #0003;font-size:10px;font-weight:700;color:var(--g2);opacity:0}
+.dc i{display:block;height:6px;border-radius:3px;background:#dbe7e3;margin-top:8px}
+.dc.a{left:0;top:10px;transform:translate(-120px,-60px) rotate(-14deg)}
+.dc.b{right:0;top:60px;transform:translate(120px,-60px) rotate(12deg)}
+.fs.vis .dc.a{animation:la .9s .3s forwards}.fs.vis .dc.b{animation:lb .9s .6s forwards}
+.up{position:absolute;left:10px;right:10px;bottom:0;background:#fff;border-radius:14px;padding:12px 14px;font-size:11px;font-weight:700;box-shadow:0 12px 26px #0003}
+.pb{height:8px;border-radius:4px;background:#dbe7e3;margin-top:8px;overflow:hidden}
+.pb i{display:block;height:100%;width:0;background:var(--gold)}
+.fs.vis .pb i{animation:fill 1.6s 1.2s forwards}
+.up .ok{float:right;color:#14806a;opacity:0}.fs.vis .up .ok{animation:pop .4s 2.8s forwards}
+.paper{position:relative;width:200px;height:250px;background:#fff;border-radius:10px;padding:20px;box-shadow:0 18px 40px #0006;overflow:visible}
+.paper i{display:block;height:7px;border-radius:4px;background:#dbe7e3;margin-bottom:12px}
+.paper .t{font-size:11px;font-weight:700;color:var(--g2);margin-bottom:12px}
+.scan{position:absolute;left:0;right:0;top:10px;height:3px;background:var(--gold);box-shadow:0 0 14px var(--gold);opacity:0}
+.fs.vis .scan{opacity:1;animation:scan 2s ease-in-out infinite alternate}
+.stamp{position:absolute;right:-34px;bottom:30px;border:4px solid #14806a;color:#14806a;font-weight:800;font-size:20px;padding:4px 12px;border-radius:8px;background:#fffd;opacity:0;transform:rotate(-14deg) scale(3)}
+.fs.vis .stamp{animation:thump .5s 2.2s forwards}
+.who{position:absolute;left:14px;bottom:14px;background:#ffffff22;color:#fff;font-size:12px;padding:6px 12px;border-radius:20px}
+.res{position:relative;width:250px;background:#fff;border-radius:22px;padding:26px 20px;text-align:center;box-shadow:0 18px 40px #0b3d3a30}
+.res svg{width:84px;height:84px}
+.ring,.chk{fill:none;stroke:#14806a;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.ring{stroke-dasharray:214;stroke-dashoffset:214}.chk{stroke-dasharray:60;stroke-dashoffset:60}
+.fs.vis .ring{animation:dash 1s .4s forwards}.fs.vis .chk{animation:dash .6s 1.2s forwards}
+.res b{display:block;font-size:20px;margin:6px 0 2px}.res small{color:var(--mut)}
+.sts{display:flex;gap:6px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.sts span{font-size:10px;font-weight:700;padding:5px 9px;border-radius:20px;background:#eef2f1;color:#8a9b98}
+.sts .on{background:#14806a;color:#fff;transform:scale(1.1)}
+.cf{position:absolute;width:9px;height:9px;border-radius:2px;top:-10px;opacity:0}
+.fs.vis .cf{animation:fall 2.2s var(--d) ease-in forwards}
+@keyframes type{to{width:var(--w)}}
+@keyframes pop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+@keyframes bob{50%{transform:translateY(-10px)}}
+@keyframes la{to{opacity:1;transform:rotate(-6deg)}}
+@keyframes lb{to{opacity:1;transform:rotate(5deg)}}
+@keyframes fill{to{width:100%}}
+@keyframes scan{to{top:96%}}
+@keyframes thump{60%{transform:rotate(-14deg) scale(.9);opacity:1}to{opacity:1;transform:rotate(-14deg) scale(1)}}
+@keyframes dash{to{stroke-dashoffset:0}}
+@keyframes fall{10%{opacity:1}to{opacity:0;transform:translateY(330px) rotate(360deg)}}
+@media(max-width:960px){
+ .rail:before,.rail:after{left:27px}
+ .fs{grid-template-columns:1fr;gap:20px;padding-left:72px;margin-bottom:60px}
+ .fm{left:27px;top:0;margin-top:0}
+ .fs:nth-child(even) .fc,.fs:nth-child(even) .fv{order:initial}
+ .fc,.fv,.fs:nth-child(even) .fc,.fs:nth-child(even) .fv{transform:translateY(30px)}
+ .fs.vis .fc,.fs.vis .fv,.fs.vis:nth-child(even) .fc,.fs.vis:nth-child(even) .fv{transform:none}
+}
 </style>
 </head>
 <body>
@@ -153,7 +234,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 <header id="hd"><div class="wrap">
   <a class="logo" href="landing.php"><i>CBE</i><span><b>Commercial Bank of Ethiopia</b><small>The Bank for a Brighter Future</small></span></a>
   <nav>
-    <a class="on" href="#top">Home</a><a href="#products">Savings Accounts</a><a href="#requirements">Requirements</a><a href="#how">How It Works</a><a href="#faq">Help &amp; Support</a>
+    <a class="on" href="#top">Home</a><a href="#products">Savings Accounts</a><a href="#requirements">Requirements</a><a href="#flow">How It Works</a><a href="#faq">Help &amp; Support</a>
   </nav>
   <a class="btn gold" href="login.php">Sign In</a>
   <button class="burger" id="bg" aria-label="Menu" aria-expanded="false"><span></span></button>
@@ -194,18 +275,49 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   <div class="t rv d3"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0116 0v2"/><rect x="3" y="14" width="4" height="6" rx="1"/><rect x="17" y="14" width="4" height="6" rx="1"/></svg></div><div><b>Need Help?</b><span>Our support team is ready to assist you.</span></div></div>
 </div></div>
 
+<section class="flow" id="flow"><div class="wrap">
+  <div class="fh"><div class="kick rv">THE APPLICATION PROCESS</div><h2 class="rv">It's easy. Just follow these steps.</h2><p class="lead rv">Follow Hana, a student in Nekemte, from her first form to her new account.</p></div>
+  <div class="rail" id="rail">
+
+    <div class="fs">
+      <div class="fm">01</div>
+      <div class="fc"><h3>Provide Your Details</h3><p>Enter your personal information and select the savings account you want to apply for.</p><div class="case"><b>Hana's case:</b> she types her name and phone number, then picks Personal Savings.</div></div>
+      <div class="fv"><div class="scene s1"><img src="img/step1.jpg" alt="" onerror="this.remove()">
+        <div class="ph"><small>New application</small>
+          <div class="fl" style="--w:85%;--d:.4s"></div><div class="fl" style="--w:60%;--d:.9s"></div><div class="fl" style="--w:75%;--d:1.4s"></div>
+          <div class="chip">Personal Savings</div><div class="go">Continue</div></div></div></div>
+    </div>
+
+    <div class="fs">
+      <div class="fm">02</div>
+      <div class="fc"><h3>Submit Your Documents</h3><p>Upload the required information and supporting documents.</p><div class="case"><b>Hana's case:</b> she adds her National ID and a residence letter from her kebele.</div></div>
+      <div class="fv"><div class="scene s2"><img src="img/step2.jpg" alt="" onerror="this.remove()">
+        <div class="docs"><div class="dc a">National ID<i></i><i style="width:70%"></i></div><div class="dc b">Residence letter<i></i><i style="width:60%"></i></div>
+          <div class="up">Uploading 2 files <span class="ok">&#10003; Done</span><div class="pb"><i></i></div></div></div></div></div>
+    </div>
+
+    <div class="fs">
+      <div class="fm">03</div>
+      <div class="fc"><h3>Application Review</h3><p>The authorized bank reviewer checks your application and records a decision.</p><div class="case"><b>Hana's case:</b> the reviewer compares her ID with the form and records "approved".</div></div>
+      <div class="fv"><div class="scene s3"><img src="img/step3.jpg" alt="" onerror="this.remove()">
+        <div class="paper"><div class="t">Application form</div><i></i><i style="width:80%"></i><i></i><i style="width:55%"></i><i style="width:70%"></i><div class="scan"></div><div class="stamp">APPROVED</div></div>
+        <div class="who">Reviewer at work</div></div></div>
+    </div>
+
+    <div class="fs">
+      <div class="fm">04</div>
+      <div class="fc"><h3>Receive the Outcome</h3><p>See whether your application has been approved, requires correction, or has been declined.</p><div class="case"><b>Hana's case:</b> she gets a reference number and sees her status: Approved.</div></div>
+      <div class="fv"><div class="scene s4"><img src="img/step4.jpg" alt="" onerror="this.remove()">
+        <span class="cf" style="left:20%;background:#f5b82e;--d:1.4s"></span><span class="cf" style="left:34%;background:#14806a;--d:1.6s"></span><span class="cf" style="left:50%;background:#f5b82e;--d:1.5s"></span><span class="cf" style="left:64%;background:#0f5a52;--d:1.8s"></span><span class="cf" style="left:78%;background:#f5b82e;--d:1.5s"></span>
+        <div class="res"><svg viewBox="0 0 84 84"><circle class="ring" cx="42" cy="42" r="34"/><path class="chk" d="M27 43l11 11 20-23"/></svg><b>Approved</b><small>Reference: CBE-0142</small>
+          <div class="sts"><span class="on">Approved</span><span>Needs correction</span><span>Declined</span></div></div></div></div>
+    </div>
+
+  </div>
+</div></section>
+
 <section id="how"><div class="wrap grid2">
   <div>
-    <div class="panel rv">
-      <div class="kick">THE APPLICATION PROCESS</div>
-      <h2>It's easy. Just follow these steps.</h2>
-      <div class="steps" id="steps">
-        <div class="step"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-5 4-7 8-7s8 2 8 7"/></svg></div><div class="n">01</div><b>Provide Your Details</b><span>Enter your personal information and select the savings account you want to apply for.</span></div>
-        <div class="step"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7 3h8l4 4v14H7z"/><path d="M10 12h6M10 16h6"/></svg></div><div class="n">02</div><b>Submit Your Documents</b><span>Upload the required information and supporting documents.</span></div>
-        <div class="step"><div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 13l2 2 4-4"/></svg></div><div class="n">03</div><b>Application Review</b><span>The authorized bank reviewer checks your application and records a decision.</span></div>
-        <div class="step"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></div><div class="n">04</div><b>Receive the Outcome</b><span>See whether your application has been approved, requires correction, or has been declined.</span></div>
-      </div>
-    </div>
     <div class="panel rv d1" style="margin-top:24px;padding:28px">
       <div class="mini" style="margin:0;padding:0;border:0">
         <div><h4>Before You Begin</h4><ul><li>Valid identification document (e.g., National ID, Passport)</li><li>Proof of address (e.g., utility bill, residence letter)</li><li>Your contact information (phone number and email)</li></ul></div>
@@ -307,7 +419,7 @@ const links=[...document.querySelectorAll('nav a')];
 const so=new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}
 }),{rootMargin:'-45% 0px -50% 0px'});
-['top','products','requirements','how','faq'].forEach(id=>{const el=document.getElementById(id);el&&so.observe(el)});
+['top','products','requirements','how','flow','faq'].forEach(id=>{const el=document.getElementById(id);el&&so.observe(el)});
 $('#chk').onclick=()=>{
   const v=$('#ref').value.trim(),r=$('#res');
   r.textContent=v?('Demo: no live lookup yet for "'+v+'". Log in to see applications.'):'Enter a reference number first.';
@@ -318,6 +430,11 @@ bg.onclick=function(){var o=nv.classList.toggle('open');bg.classList.toggle('ope
 nv.addEventListener('click',function(e){if(e.target.tagName==='A')shut()});
 addEventListener('keydown',function(e){if(e.key==='Escape')shut()});
 addEventListener('resize',function(){if(innerWidth>960)shut()});
+var fsl=[].slice.call(document.querySelectorAll('.fs')),rail=document.getElementById('rail');
+var fo=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.35});
+fsl.forEach(function(s){fo.observe(s)});
+function rl(){var r=rail.getBoundingClientRect();rail.style.setProperty('--fp',Math.max(0,Math.min(100,(innerHeight*.55-r.top)/r.height*100))+'%')}
+addEventListener('scroll',rl,{passive:true});rl();
 </script>
 </body>
 </html>
