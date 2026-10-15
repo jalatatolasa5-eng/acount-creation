@@ -56,3 +56,5 @@ Change the passwords before sharing it.
 ## Notes
 - Figures come from published documents and may change. Confirm with the branch.
 - The study did not settle some points. See the assumptions on the requirements page.
+- `landing.php` is the public home page. Visitors can read about the six account types and check an application's status.
+- `status.php` returns only the status and account type for a CIF or account number. It shows no names, phone numbers or balances.
