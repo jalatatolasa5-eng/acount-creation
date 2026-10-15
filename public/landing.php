@@ -283,6 +283,14 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
  .pbody li:before{transform:none}
  .lvl,.br{transform:none}.sh,.rg{transform:none;stroke-dashoffset:0}.rg{transform:rotate(-90deg)}
 }
+[hidden]{display:none!important}
+.more{margin-top:24px}
+.pv{height:210px}
+.pv .em{position:relative;z-index:2;font-size:70px;animation:bob 5s ease-in-out infinite}
+.pv img{transition:transform .9s}
+.plan:hover .pv img{transform:scale(1.08)}
+#moreBtn{background:transparent;color:#fff;border-color:#ffffff66}
+#moreBtn:hover{background:#ffffff1a}
 </style>
 </head>
 <body>
@@ -408,49 +416,64 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   <p class="lead rv">Compare the demo products below. Check the tariff page for fees and rates.</p>
   <div class="cards plans">
     <article class="plan" style="--i:0"><div class="pin">
-      <div class="pv pv1"><img src="img/plan1.jpg" alt="" onerror="this.remove()">
-        <svg viewBox="0 0 150 150" aria-hidden="true">
-          <rect class="lvl" x="42" y="70" width="66" height="62" rx="10" fill="#f5b82e"/>
-          <rect x="38" y="48" width="74" height="88" rx="14" fill="#ffffff1f" stroke="#fff" stroke-width="4"/>
-          <rect x="46" y="38" width="58" height="12" rx="5" fill="#fff"/>
-          <circle class="cn" cx="60" cy="8" r="9" fill="#ffd76a" stroke="#b8860b" stroke-width="2" style="--d:0s"/>
-          <circle class="cn" cx="75" cy="8" r="9" fill="#ffd76a" stroke="#b8860b" stroke-width="2" style="--d:.7s"/>
-          <circle class="cn" cx="90" cy="8" r="9" fill="#ffd76a" stroke="#b8860b" stroke-width="2" style="--d:1.4s"/>
-        </svg></div>
-      <div class="pbody"><span class="lab">Basic</span><h3>Personal Savings</h3><p>An everyday account to start building savings.</p>
-        <ul><li>Low opening deposit</li><li>Passbook included</li><li>Interest credited monthly</li></ul>
+      <div class="pv" style="background:linear-gradient(135deg,#1e7a63,#0f5a52)"><span class="em">💰</span><img src="img/ordinary.jpg" alt="Ordinary Savings" loading="lazy" onerror="this.remove()"></div>
+      <div class="pbody"><span class="lab">Ordinary</span><h3>Ordinary Savings</h3><p>An everyday interest-bearing account for saving.</p>
+        <ul><li>Low-risk everyday saving</li><li>Interest-bearing</li><li>Open at any branch</li></ul>
         <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
     </div></article>
-
     <article class="plan" style="--i:1"><div class="pin">
-      <div class="pv pv2"><img src="img/plan2.jpg" alt="" onerror="this.remove()">
-        <svg viewBox="0 0 150 150" aria-hidden="true">
-          <rect class="br" x="30" y="115" width="24" height="25" rx="4" fill="#0b3d3a" style="--d:0s"/>
-          <rect class="br" x="63" y="95" width="24" height="45" rx="4" fill="#0f5a52" style="--d:.25s"/>
-          <rect class="br" x="96" y="70" width="24" height="70" rx="4" fill="#12302d" style="--d:.5s"/>
-          <polygon points="75,8 125,28 75,48 25,28" fill="#12302d"/>
-          <path d="M45 38v14c0 9 60 9 60 0V38" fill="#0f5a52"/>
-          <g class="tas"><line x1="125" y1="28" x2="125" y2="54" stroke="#fff" stroke-width="3"/><circle cx="125" cy="57" r="5" fill="#fff"/></g>
-        </svg></div>
-      <div class="pbody"><span class="lab">Youth</span><h3>Student &amp; Youth Savings</h3><p>Made for students and first-time savers.</p>
-        <ul><li>Simple requirements</li><li>Guardian option for minors</li><li>Goal-based saving</li></ul>
+      <div class="pv" style="background:linear-gradient(135deg,#f5b82e,#e59a14)"><span class="em">🎓</span><img src="img/youth.jpg" alt="Minor, Teen-Youth &amp; Youth Savings" loading="lazy" onerror="this.remove()"></div>
+      <div class="pbody"><span class="lab">Youth</span><h3>Minor, Teen-Youth &amp; Youth Savings</h3><p>Builds early saving habits for young people.</p>
+        <ul><li>Options for minors and teens</li><li>Simple requirements</li><li>Guardian support for minors</li></ul>
         <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
     </div></article>
-
     <article class="plan" style="--i:2"><div class="pin">
-      <div class="pv pv3"><img src="img/plan3.jpg" alt="" onerror="this.remove()">
-        <svg viewBox="0 0 150 150" aria-hidden="true">
-          <circle cx="75" cy="75" r="56" fill="none" stroke="#ffffff30" stroke-width="8"/>
-          <circle class="rg" cx="75" cy="75" r="56" fill="none" stroke="#f5b82e" stroke-width="8" stroke-linecap="round"/>
-          <path class="sh" d="M60 74V62a15 15 0 0130 0v12" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
-          <rect x="52" y="74" width="46" height="38" rx="7" fill="#fff"/>
-          <circle cx="75" cy="91" r="4.5" fill="#0b3d3a"/><rect x="73" y="92" width="4" height="10" rx="2" fill="#0b3d3a"/>
-        </svg></div>
-      <div class="pbody"><span class="lab">Plus</span><h3>Fixed-Term Savings</h3><p>Lock in your money for a higher return.</p>
-        <ul><li>Choose your term</li><li>Higher interest</li><li>Clear withdrawal rules</li></ul>
+      <div class="pv" style="background:linear-gradient(135deg,#b5527a,#6e2a4b)"><span class="em">👩🏾</span><img src="img/women.jpg" alt="Women Saving Account" loading="lazy" onerror="this.remove()"></div>
+      <div class="pbody"><span class="lab">Women</span><h3>Women Saving Account</h3><p>A savings account made for women.</p>
+        <ul><li>Higher interest</li><li>Cashback</li><li>Partner discounts</li></ul>
         <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
     </div></article>
-  </div>
+    <article class="plan" style="--i:0"><div class="pin">
+      <div class="pv" style="background:linear-gradient(135deg,#8a6a2a,#4a3510)"><span class="em">🧓🏾</span><img src="img/gasha.jpg" alt="Gasha Saving Account" loading="lazy" onerror="this.remove()"></div>
+      <div class="pbody"><span class="lab">Gasha</span><h3>Gasha Saving Account</h3><p>For citizens aged 55 and above.</p>
+        <ul><li>Higher interest</li><li>Healthcare discounts</li><li>Priority services</li></ul>
+        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
+    </div></article>
+    <article class="plan" style="--i:1"><div class="pin">
+      <div class="pv" style="background:linear-gradient(135deg,#1b4f6b,#0b3d3a)"><span class="em">📚</span><img src="img/education.jpg" alt="Education Saving Account" loading="lazy" onerror="this.remove()"></div>
+      <div class="pbody"><span class="lab">Education</span><h3>Education Saving Account</h3><p>Save for school and university costs.</p>
+        <ul><li>Above-ordinary interest</li><li>Incentives</li><li>Discounts</li></ul>
+        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
+    </div></article>
+    <article class="plan" style="--i:2"><div class="pin">
+      <div class="pv" style="background:linear-gradient(135deg,#12302d,#2f6b5c)"><span class="em">🔒</span><img src="img/fixed.jpg" alt="Fixed-Time Deposit" loading="lazy" onerror="this.remove()"></div>
+      <div class="pbody"><span class="lab">Fixed-Time</span><h3>Fixed-Time Deposit</h3><p>Lock money for a set period for a higher return.</p>
+        <ul><li>Choose your period</li><li>Rate agreed in advance</li><li>Clear withdrawal rules</li></ul>
+        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
+    </div></article>
+</div>
+<div class="cards plans more" id="morePlans" hidden>
+    <article class="plan" style="--i:0"><div class="pin">
+      <div class="pv" style="background:linear-gradient(135deg,#c0568a,#7a2a55)"><span class="em">💍</span><img src="img/wedding.jpg" alt="Wedding Saving Account" loading="lazy" onerror="this.remove()"></div>
+      <div class="pbody"><span class="lab">Wedding</span><h3>Wedding Saving Account</h3><p>Save toward your wedding.</p>
+        <ul><li>Above-ordinary interest</li><li>Incentives</li><li>Discounts</li></ul>
+        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
+    </div></article>
+    <article class="plan" style="--i:1"><div class="pin">
+      <div class="pv" style="background:linear-gradient(135deg,#1f9db8,#0b5d78)"><span class="em">🏖️</span><img src="img/holiday.jpg" alt="Holiday Saving Account" loading="lazy" onerror="this.remove()"></div>
+      <div class="pbody"><span class="lab">Holiday</span><h3>Holiday Saving Account</h3><p>Save for your next trip.</p>
+        <ul><li>Above-ordinary interest</li><li>Incentives</li><li>Discounts</li></ul>
+        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
+    </div></article>
+    <article class="plan" style="--i:2"><div class="pin">
+      <div class="pv" style="background:linear-gradient(135deg,#c46a2b,#7a3a10)"><span class="em">🧳</span><img src="img/guzo.jpg" alt="Guzo Saving Account" loading="lazy" onerror="this.remove()"></div>
+      <div class="pbody"><span class="lab">Guzo</span><h3>Guzo Saving Account</h3><p>A goal-based account for travel.</p>
+        <ul><li>Above-ordinary interest</li><li>Incentives</li><li>Discounts</li></ul>
+        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
+    </div></article>
+</div>
+<div style="text-align:center;margin-top:36px"><button class="btn out" id="moreBtn" type="button" aria-expanded="false" aria-controls="morePlans">Show more account types</button></div>
+
 
   <div style="text-align:center;margin-top:40px" class="rv"><a class="btn gold" href="tariff.php">See rates &amp; fees &rarr;</a></div>
 </div></section>
@@ -548,6 +571,16 @@ if(matchMedia('(hover:hover)').matches){
     p.addEventListener('mouseleave',function(){pin.style.setProperty('--ry','0deg');pin.style.setProperty('--rx','0deg')});
   });
 }
+})();
+(function(){
+var b=document.getElementById('moreBtn'),m=document.getElementById('morePlans');
+if(!b)return;
+b.onclick=function(){
+  var open=m.hasAttribute('hidden');
+  if(open){m.removeAttribute('hidden');b.textContent='Show fewer account types'}
+  else{m.setAttribute('hidden','');b.textContent='Show more account types'}
+  b.setAttribute('aria-expanded',open);
+};
 })();
 </script>
 </body>
