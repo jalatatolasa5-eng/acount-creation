@@ -445,8 +445,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   <aside>
     <div class="track rv d1">
       <h3>Track Your Application</h3>
-      <p>Already applied? Check the status of your application using your reference number.</p>
-      <input id="ref" placeholder="Enter your reference number" aria-label="Reference number">
+      <p>Already applied? Check the status of your application using your CIF or account number.</p>
+      <input id="ref" placeholder="Enter your CIF or account number" aria-label="Reference number">
       <button class="btn gold" id="chk">Check Status &rarr;</button>
       <div id="res" aria-live="polite"></div>
     </div>
@@ -725,9 +725,14 @@ const so=new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}
 }),{rootMargin:'-45% 0px -50% 0px'});
 ['top','products','requirements','how','flow','faq'].forEach(id=>{const el=document.getElementById(id);el&&so.observe(el)});
-$('#chk').onclick=()=>{
-  const v=$('#ref').value.trim(),r=$('#res');
-  r.textContent=v?('Demo: no live lookup yet for "'+v+'". Log in to see applications.'):'Enter a reference number first.';
+$('#chk').onclick=function(){
+  var v=$('#ref').value.trim(),r=$('#res');
+  if(!v){r.textContent='Enter your CIF or account number first.';return}
+  r.textContent='Checking...';
+  fetch('status.php?ref='+encodeURIComponent(v))
+    .then(function(x){return x.json()})
+    .then(function(d){r.textContent=d.ok?(d.type+': '+d.msg):d.msg})
+    .catch(function(){r.textContent='Could not reach the server.'});
 };
 var bg=document.getElementById('bg'),nv=document.querySelector('nav');
 function shut(){bg.classList.remove('open');nv.classList.remove('open');bg.setAttribute('aria-expanded','false')}
