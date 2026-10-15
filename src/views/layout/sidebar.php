@@ -34,7 +34,6 @@ function _nav(string $href, string $label, string $icon, string $cur, int $badge
 
       <?= _nav('dashboard.php', 'Dashboard',       'home',     $cur) ?>
       <?= _nav('accounts.php',  'Accounts',        'accounts', $cur) ?>
-      <?= _nav('tariff.php',    'Rates &amp; Fees', 'tariff',   $cur) ?>
 
       <?php if (!$is_sup): ?>
         <!-- Officer (Maker) only -->
