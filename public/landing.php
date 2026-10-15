@@ -226,6 +226,63 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
  .fc,.fv,.fs:nth-child(even) .fc,.fs:nth-child(even) .fv{transform:translateY(30px)}
  .fs.vis .fc,.fs.vis .fv,.fs.vis:nth-child(even) .fc,.fs.vis:nth-child(even) .fv{transform:none}
 }
+.dark-sec{position:relative;overflow:hidden}
+.dark-sec .wrap{position:relative;z-index:2}
+.pcoin{position:absolute;width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#ffe08a,#c58a0b);box-shadow:inset 0 0 0 3px #ffffff40;opacity:.3;animation:cfloat var(--t,9s) ease-in-out infinite;z-index:1}
+@keyframes cfloat{50%{transform:translateY(-34px) rotate(180deg)}}
+.plans{perspective:1200px;align-items:stretch}
+.plan{opacity:0;transform:translateY(70px) rotateX(22deg);transition:opacity .9s,transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i)*.18s)}
+.plan.vis{opacity:1;transform:none}
+.pin{position:relative;height:100%;background:#ffffff12;border:1px solid #ffffff26;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s,box-shadow .3s,border-color .3s}
+.plan:hover .pin{box-shadow:0 26px 60px #0009;border-color:var(--gold)}
+.pin:after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,#ffffff30,transparent);transform:skewX(-20deg);transition:left .8s;pointer-events:none;z-index:5}
+.plan:hover .pin:after{left:130%}
+.pv{position:relative;height:190px;display:grid;place-items:center;overflow:hidden}
+.pv1{background:linear-gradient(135deg,#1e7a63,#0f5a52)}
+.pv2{background:linear-gradient(135deg,#f5b82e,#e59a14)}
+.pv3{background:linear-gradient(135deg,#1b4f6b,#0b3d3a)}
+.pv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:3}
+.pv svg{width:150px;height:150px;position:relative;z-index:2}
+.pbody{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1}
+.pbody .lab{font-size:13px;font-weight:700;color:var(--gold)}
+.pbody h3{margin:4px 0 8px;font-size:22px}
+.pbody p{font-size:14px;color:#c4dad6}
+.pbody ul{list-style:none;margin:18px 0 22px;padding:0;flex:1}
+.pbody li{display:flex;gap:12px;align-items:center;font-size:14px;color:#e5f1ee;margin:11px 0;opacity:0;transform:translateX(-14px)}
+.pbody li:before{content:"\2713";flex:none;width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--g);display:grid;place-items:center;font-size:12px;font-weight:800;transform:scale(0)}
+.pbody li:nth-child(1){--k:0}.pbody li:nth-child(2){--k:1}.pbody li:nth-child(3){--k:2}
+.plan.vis li{animation:pli .5s calc(.7s + var(--i)*.18s + var(--k)*.18s) forwards}
+.plan.vis li:before{animation:ptick .4s calc(.9s + var(--i)*.18s + var(--k)*.18s) forwards}
+.pbtn{align-self:flex-start;padding:11px 20px;font-size:14px}
+@keyframes pli{to{opacity:1;transform:none}}
+@keyframes ptick{60%{transform:scale(1.3)}to{transform:scale(1)}}
+/* jar */
+.lvl{transform-box:fill-box;transform-origin:bottom;transform:scaleY(.15)}
+.plan.vis .lvl{animation:lvl 4.5s ease-in-out infinite}
+.cn{opacity:0}
+.plan.vis .cn{animation:cdrop 2.2s var(--d) ease-in infinite}
+@keyframes lvl{0%{transform:scaleY(.15)}80%,100%{transform:scaleY(1)}}
+@keyframes cdrop{0%{transform:translateY(0);opacity:0}15%{opacity:1}70%{transform:translateY(78px);opacity:1}100%{transform:translateY(90px);opacity:0}}
+/* bars + cap */
+.br{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0)}
+.plan.vis .br{animation:bgrow 4s var(--d) ease-out infinite}
+.tas{transform-origin:125px 28px}
+.plan.vis .tas{animation:sway 1.8s ease-in-out infinite alternate}
+@keyframes bgrow{0%{transform:scaleY(0)}30%,88%{transform:scaleY(1)}100%{transform:scaleY(0)}}
+@keyframes sway{from{transform:rotate(-12deg)}to{transform:rotate(12deg)}}
+/* lock + ring */
+.rg{stroke-dasharray:352;stroke-dashoffset:352;transform:rotate(-90deg);transform-origin:75px 75px}
+.plan.vis .rg{animation:rdraw 4s ease-in-out infinite}
+.sh{transform:translateY(-12px)}
+.plan.vis .sh{animation:lclose 4s ease-in-out infinite}
+@keyframes rdraw{0%{stroke-dashoffset:352}70%,100%{stroke-dashoffset:0}}
+@keyframes lclose{0%,20%{transform:translateY(-12px)}40%,100%{transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){
+ .plan{opacity:1;transform:none}
+ .pbody li{opacity:1;transform:none}
+ .pbody li:before{transform:none}
+ .lvl,.br{transform:none}.sh,.rg{transform:none;stroke-dashoffset:0}.rg{transform:rotate(-90deg)}
+}
 </style>
 </head>
 <body>
@@ -344,15 +401,57 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   <div class="rv d3"><b data-n="24">0</b><span>Hour online access</span></div>
 </div></section>
 
-<section class="dark-sec" id="products"><div class="wrap">
+<section class="dark-sec" id="products"><span class="pcoin" style="left:5%;top:12%;--t:8s"></span><span class="pcoin" style="left:92%;top:22%;--t:10s;width:18px;height:18px"></span><span class="pcoin" style="left:12%;top:78%;--t:11s;width:20px;height:20px"></span><span class="pcoin" style="left:88%;top:80%;--t:9s"></span>
+<div class="wrap">
   <div class="kick rv">SAVINGS PRODUCTS</div>
   <h2 class="rv">Choose the account that fits you.</h2>
   <p class="lead rv">Compare the demo products below. Check the tariff page for fees and rates.</p>
-  <div class="cards">
-    <div class="pc rv"><div class="big">Basic</div><h3>Personal Savings</h3><p>An everyday account to start building savings.</p><ul><li>Low opening deposit</li><li>Passbook included</li><li>Interest credited monthly</li></ul></div>
-    <div class="pc rv d1"><div class="big">Youth</div><h3>Student &amp; Youth Savings</h3><p>Made for students and first-time savers.</p><ul><li>Simple requirements</li><li>Guardian option for minors</li><li>Goal-based saving</li></ul></div>
-    <div class="pc rv d2"><div class="big">Plus</div><h3>Fixed-Term Savings</h3><p>Lock in your money for a higher return.</p><ul><li>Choose your term</li><li>Higher interest</li><li>Clear withdrawal rules</li></ul></div>
+  <div class="cards plans">
+    <article class="plan" style="--i:0"><div class="pin">
+      <div class="pv pv1"><img src="img/plan1.jpg" alt="" onerror="this.remove()">
+        <svg viewBox="0 0 150 150" aria-hidden="true">
+          <rect class="lvl" x="42" y="70" width="66" height="62" rx="10" fill="#f5b82e"/>
+          <rect x="38" y="48" width="74" height="88" rx="14" fill="#ffffff1f" stroke="#fff" stroke-width="4"/>
+          <rect x="46" y="38" width="58" height="12" rx="5" fill="#fff"/>
+          <circle class="cn" cx="60" cy="8" r="9" fill="#ffd76a" stroke="#b8860b" stroke-width="2" style="--d:0s"/>
+          <circle class="cn" cx="75" cy="8" r="9" fill="#ffd76a" stroke="#b8860b" stroke-width="2" style="--d:.7s"/>
+          <circle class="cn" cx="90" cy="8" r="9" fill="#ffd76a" stroke="#b8860b" stroke-width="2" style="--d:1.4s"/>
+        </svg></div>
+      <div class="pbody"><span class="lab">Basic</span><h3>Personal Savings</h3><p>An everyday account to start building savings.</p>
+        <ul><li>Low opening deposit</li><li>Passbook included</li><li>Interest credited monthly</li></ul>
+        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
+    </div></article>
+
+    <article class="plan" style="--i:1"><div class="pin">
+      <div class="pv pv2"><img src="img/plan2.jpg" alt="" onerror="this.remove()">
+        <svg viewBox="0 0 150 150" aria-hidden="true">
+          <rect class="br" x="30" y="115" width="24" height="25" rx="4" fill="#0b3d3a" style="--d:0s"/>
+          <rect class="br" x="63" y="95" width="24" height="45" rx="4" fill="#0f5a52" style="--d:.25s"/>
+          <rect class="br" x="96" y="70" width="24" height="70" rx="4" fill="#12302d" style="--d:.5s"/>
+          <polygon points="75,8 125,28 75,48 25,28" fill="#12302d"/>
+          <path d="M45 38v14c0 9 60 9 60 0V38" fill="#0f5a52"/>
+          <g class="tas"><line x1="125" y1="28" x2="125" y2="54" stroke="#fff" stroke-width="3"/><circle cx="125" cy="57" r="5" fill="#fff"/></g>
+        </svg></div>
+      <div class="pbody"><span class="lab">Youth</span><h3>Student &amp; Youth Savings</h3><p>Made for students and first-time savers.</p>
+        <ul><li>Simple requirements</li><li>Guardian option for minors</li><li>Goal-based saving</li></ul>
+        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
+    </div></article>
+
+    <article class="plan" style="--i:2"><div class="pin">
+      <div class="pv pv3"><img src="img/plan3.jpg" alt="" onerror="this.remove()">
+        <svg viewBox="0 0 150 150" aria-hidden="true">
+          <circle cx="75" cy="75" r="56" fill="none" stroke="#ffffff30" stroke-width="8"/>
+          <circle class="rg" cx="75" cy="75" r="56" fill="none" stroke="#f5b82e" stroke-width="8" stroke-linecap="round"/>
+          <path class="sh" d="M60 74V62a15 15 0 0130 0v12" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+          <rect x="52" y="74" width="46" height="38" rx="7" fill="#fff"/>
+          <circle cx="75" cy="91" r="4.5" fill="#0b3d3a"/><rect x="73" y="92" width="4" height="10" rx="2" fill="#0b3d3a"/>
+        </svg></div>
+      <div class="pbody"><span class="lab">Plus</span><h3>Fixed-Term Savings</h3><p>Lock in your money for a higher return.</p>
+        <ul><li>Choose your term</li><li>Higher interest</li><li>Clear withdrawal rules</li></ul>
+        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
+    </div></article>
   </div>
+
   <div style="text-align:center;margin-top:40px" class="rv"><a class="btn gold" href="tariff.php">See rates &amp; fees &rarr;</a></div>
 </div></section>
 
@@ -435,6 +534,21 @@ var fo=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isInter
 fsl.forEach(function(s){fo.observe(s)});
 function rl(){var r=rail.getBoundingClientRect();rail.style.setProperty('--fp',Math.max(0,Math.min(100,(innerHeight*.55-r.top)/r.height*100))+'%')}
 addEventListener('scroll',rl,{passive:true});rl();
+(function(){
+var plans=[].slice.call(document.querySelectorAll('.plan'));
+var po=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');po.unobserve(e.target)}})},{threshold:.25});
+plans.forEach(function(p){po.observe(p)});
+if(matchMedia('(hover:hover)').matches){
+  plans.forEach(function(p){
+    var pin=p.querySelector('.pin');
+    p.addEventListener('mousemove',function(e){
+      var r=p.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      pin.style.setProperty('--ry',(x*10)+'deg');pin.style.setProperty('--rx',(-y*10)+'deg');
+    });
+    p.addEventListener('mouseleave',function(){pin.style.setProperty('--ry','0deg');pin.style.setProperty('--rx','0deg')});
+  });
+}
+})();
 </script>
 </body>
 </html>
