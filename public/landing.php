@@ -482,9 +482,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   </div>
 
   <div class="bj ar" style="--d:.3s">
-    <div class="bjh"><b>Choose your account</b><span>Nine accounts. Tap one to read about it.</span></div>
+    <div class="bjh"><b>Choose your account</b><span>Six accounts. Tap one to read about it.</span></div>
     <div class="bjc">
-      <a href="#acc-ordinary">Ordinary</a><a href="#acc-youth">Youth</a><a href="#acc-women">Women</a><a href="#acc-gasha">Gasha (55+)</a><a href="#acc-education">Education</a><a href="#acc-fixed">Fixed-Time</a><a href="#acc-wedding">Wedding</a><a href="#acc-holiday">Holiday</a><a href="#acc-guzo">Guzo</a>
+      <a href="#acc-ordinary">Ordinary</a><a href="#acc-youth">Youth</a><a href="#acc-women">Women</a><a href="#acc-education">Education</a><a href="#acc-wedding">Wedding</a><a href="#acc-holiday">Holiday</a>
     </div>
     <div class="bjd" aria-hidden="true">Scroll down to compare &darr;</div>
   </div>
@@ -547,26 +547,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
     <div class="ac a3"><b class="tx">Higher interest</b><span>key feature</span></div>
   </div>
 </div></section>
-<section class="acc rev" id="acc-gasha"><div class="wrap ag">
-  <div class="at ar">
-    <div class="kick">Gasha</div>
-    <h2>Gasha Saving Account</h2>
-    <p class="lead">For citizens aged 55 and above. It adds care and convenience on top of higher interest.</p>
-    <ul class="ap">
-      <li><i>1</i><div><b>Higher interest</b><span>A better rate for senior savers.</span></div></li>
-      <li><i>2</i><div><b>Healthcare discounts</b><span>Savings on health services.</span></div></li>
-      <li><i>3</i><div><b>Priority services</b><span>Faster, easier service at the bank.</span></div></li>
-    </ul>
-    <a class="btn dark" href="#products">What to bring to the branch &rarr;</a>
-  </div>
-  <div class="av ar" style="--d:.15s">
-    <div class="aph" style="background:linear-gradient(135deg,#8a6a2a,#4a3510)"><span>🧓🏾</span><img src="img/gasha-hero.jpg" alt="Gasha Saving Account" loading="lazy" onerror="this.remove()"></div>
-    <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
-    <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
-    <div class="ac a3"><b class="tx">Ages 55 and above</b><span>key feature</span></div>
-  </div>
-</div></section>
-<section class="acc" id="acc-education"><div class="wrap ag">
+<section class="acc rev" id="acc-education"><div class="wrap ag">
   <div class="at ar">
     <div class="kick">Education</div>
     <h2>Education Saving Account</h2>
@@ -583,25 +564,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
     <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
     <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
     <div class="ac a3"><b class="tx">For school costs</b><span>key feature</span></div>
-  </div>
-</div></section>
-<section class="acc rev" id="acc-fixed"><div class="wrap ag">
-  <div class="at ar">
-    <div class="kick">Fixed-Time</div>
-    <h2>Fixed-Time Deposit</h2>
-    <p class="lead">Put your money away for a set period. The interest rate is agreed with the bank before you start.</p>
-    <ul class="ap">
-      <li><i>1</i><div><b>You choose the period</b><span>Pick how long to lock your money.</span></div></li>
-      <li><i>2</i><div><b>Rate agreed in advance</b><span>You know your rate from day one.</span></div></li>
-      <li><i>3</i><div><b>Long-term saving</b><span>A high-return option for money you will not need soon.</span></div></li>
-    </ul>
-    <a class="btn dark" href="#products">What to bring to the branch &rarr;</a>
-  </div>
-  <div class="av ar" style="--d:.15s">
-    <div class="aph" style="background:linear-gradient(135deg,#12302d,#2f6b5c)"><span>🔒</span><img src="img/fixed-hero.jpg" alt="Fixed-Time Deposit" loading="lazy" onerror="this.remove()"></div>
-    <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
-    <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
-    <div class="ac a3"><b class="tx">Fixed rate</b><span>key feature</span></div>
   </div>
 </div></section>
 <section class="acc" id="acc-wedding"><div class="wrap ag">
@@ -640,25 +602,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
     <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
     <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
     <div class="ac a3"><b class="tx">Plan ahead</b><span>key feature</span></div>
-  </div>
-</div></section>
-<section class="acc" id="acc-guzo"><div class="wrap ag">
-  <div class="at ar">
-    <div class="kick">Guzo</div>
-    <h2>Guzo Saving Account</h2>
-    <p class="lead">A goal-based account for travel. Ask your branch for the exact terms.</p>
-    <ul class="ap">
-      <li><i>1</i><div><b>Above-ordinary interest</b><span>A better rate than ordinary savings.</span></div></li>
-      <li><i>2</i><div><b>Incentives</b><span>Extra rewards for saving.</span></div></li>
-      <li><i>3</i><div><b>Discounts</b><span>Savings on partner offers.</span></div></li>
-    </ul>
-    <a class="btn dark" href="#products">What to bring to the branch &rarr;</a>
-  </div>
-  <div class="av ar" style="--d:.15s">
-    <div class="aph" style="background:linear-gradient(135deg,#c46a2b,#7a3a10)"><span>🧳</span><img src="img/guzo-hero.jpg" alt="Guzo Saving Account" loading="lazy" onerror="this.remove()"></div>
-    <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
-    <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
-    <div class="ac a3"><b class="tx">For your journey</b><span>key feature</span></div>
   </div>
 </div></section>
 <section id="requirements"><div class="wrap">
