@@ -1,17 +1,27 @@
-# CBE Personal Savings Account Demo (PHP + SQLite)
+# CBE Personal Savings Account Demo (PHP + MySQL)
 
 A student demo built from the study "Opening a Personal Savings Account at the Commercial Bank of Ethiopia". It is not a real bank system.
 
+## Requirements
+- XAMPP (Apache, MySQL/MariaDB and PHP 8+)
+
 ## Run it
-1. Install PHP 8+ with `pdo_sqlite` (XAMPP has it).
-2. In this folder: `php -S localhost:8000`, then open http://localhost:8000
-   (or copy the folder into XAMPP `htdocs`).
+1. Start **Apache** and **MySQL** in the XAMPP Control Panel.
+2. Copy this folder into `C:\xampp\htdocs\`.
+3. Open phpMyAdmin (http://localhost/phpmyadmin), create a database named `cbe_savings`, then import `backup.sql` into it.
+4. Check the connection in `src/config.php` (driver `mysql`, database `cbe_savings`, and your MySQL username and password; XAMPP's default is `root` with an empty password).
+5. Open http://localhost/cbe-savings-account-demo/public/index.php
+
+## Database
+- MySQL is the default (see `src/config.php`, `src/lib.php`).
+- `backup.sql` is a MariaDB dump of the `cbe_savings` database.
+- To use SQLite instead, set `'driver' => 'sqlite'` in `src/config.php`. The file is `database/data.sqlite`.
 
 ## Logins
 - officer / officer123: applications, deposits, withdrawals, passbook replacement
 - supervisor / super123: approvals, closing, month-end interest, deadlines, audit
 
-Change the passwords in `lib.php` (`db_connect`) before sharing it.
+Change the passwords before sharing it.
 
 ## Try the full story (5 minutes)
 1. Log in as officer, start a **New application** with deposit 0 and a source of funds.
@@ -20,15 +30,29 @@ Change the passwords in `lib.php` (`db_connect`) before sharing it.
 4. Log in as officer, deposit 100 or more on another account, then withdraw 600 to see the ETB 12 fee.
 5. As supervisor, move the date to the last business day and **Credit interest**.
 
-## Pages
-Public: `index.php`, `guide.php` (checklist + calculator), `tariff.php`, `requirements.php` (20 requirements, 11 use cases, assumptions).
-Staff: `dashboard.php`, `new.php`, `approvals.php`, `accounts.php`, `account.php`, `admin.php`, `audit.php`.
-Rules live in `lib.php`.
+## Project layout
+- `public/` : the web pages
+- `src/` : configuration and business rules (`config.php`, `lib.php`, `inc.php`)
+- `tests/` : business-rule tests
+- `backup.sql` : database dump
+
+## Pages (in `public/`)
+- `account.php`
+- `accounts.php`
+- `admin.php`
+- `approvals.php`
+- `audit.php`
+- `dashboard.php`
+- `guide.php`
+- `index.php`
+- `login.php`
+- `logout.php`
+- `new.php`
+- `tariff.php`
 
 ## Tests
-`php tests/run_tests.php` runs the business rules against a throwaway database.
+`php tests/run_tests.php` runs the business rules.
 
 ## Notes
-- The study did not settle some points. See "Assumptions to confirm" on `requirements.php`.
 - Figures come from published documents and may change. Confirm with the branch.
-- To use MySQL, change the connection in `lib.php` and `AUTOINCREMENT` to `AUTO_INCREMENT`.
+- The study did not settle some points. See the assumptions on the requirements page.
