@@ -377,9 +377,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   <div class="wrap">
     <span class="tag">SAVINGS ACCOUNT SERVICES</span>
     <h1>Open Your Savings Account with CBE</h1>
-    <p>Secure your future today. Apply for a savings account, provide the required information and documents, and follow your application through the review process.</p>
+    <p>Secure your future today. Visit the branch, and an officer opens your application and records your documents. A supervisor then reviews it.</p>
     <div class="cta">
-      <a class="btn dark" href="new.php">Start an Application &rarr;</a>
+      <a class="btn dark" href="login.php">Officer sign in &rarr;</a>
       <a class="btn out" href="#products">Learn About Our Savings Accounts</a>
     </div>
   </div>
@@ -387,7 +387,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 
 <div class="trust"><div class="wrap">
   <div class="t rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5L16 9.5"/></svg></div><div><b>Safe &amp; Trusted</b><span>Your information is secure with CBE.</span></div></div>
-  <div class="t rv d1"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><b>Simple &amp; Convenient</b><span>Complete your application online in a few steps.</span></div></div>
+  <div class="t rv d1"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><b>Simple &amp; Convenient</b><span>Your officer completes your application in a few steps.</span></div></div>
   <div class="t rv d2"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7 3h8l4 4v14H7z"/><path d="M10 12h6M10 16h6"/></svg></div><div><b>Multiple Savings Products</b><span>Choose the account that fits your needs.</span></div></div>
   <div class="t rv d3"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0116 0v2"/><rect x="3" y="14" width="4" height="6" rx="1"/><rect x="17" y="14" width="4" height="6" rx="1"/></svg></div><div><b>Need Help?</b><span>Our support team is ready to assist you.</span></div></div>
 </div></div>
@@ -398,7 +398,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 
     <div class="fs">
       <div class="fm">01</div>
-      <div class="fc"><h3>Provide Your Details</h3><p>Enter your personal information and select the savings account you want to apply for.</p><div class="case"><b>Hana's case:</b> she types her name and phone number, then picks Personal Savings.</div></div>
+      <div class="fc"><h3>Provide Your Details</h3><p>Give the officer your personal information and choose the savings account you want.</p><div class="case"><b>Hana's case:</b> she gives the officer her name and phone number, then picks Personal Savings.</div></div>
       <div class="fv"><div class="scene s1"><img src="img/step1.jpg" alt="" onerror="this.remove()">
         <div class="ph"><small>New application</small>
           <div class="fl" style="--w:85%;--d:.4s"></div><div class="fl" style="--w:60%;--d:.9s"></div><div class="fl" style="--w:75%;--d:1.4s"></div>
@@ -407,7 +407,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 
     <div class="fs">
       <div class="fm">02</div>
-      <div class="fc"><h3>Submit Your Documents</h3><p>Upload the required information and supporting documents.</p><div class="case"><b>Hana's case:</b> she adds her National ID and a residence letter from her kebele.</div></div>
+      <div class="fc"><h3>Submit Your Documents</h3><p>Hand the officer the required information and supporting documents.</p><div class="case"><b>Hana's case:</b> she hands over her National ID and a residence letter from her kebele.</div></div>
       <div class="fv"><div class="scene s2"><img src="img/step2.jpg" alt="" onerror="this.remove()">
         <div class="docs"><div class="dc a">National ID<i></i><i style="width:70%"></i></div><div class="dc b">Residence letter<i></i><i style="width:60%"></i></div>
           <div class="up">Uploading 2 files <span class="ok">&#10003; Done</span><div class="pb"><i></i></div></div></div></div></div>
@@ -467,7 +467,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
       <div class="kick">YOUR BRANCH</div>
       <h2>Open your account at CBE Horo Guduru Branch</h2>
     <p class="loc">Horo Guduru, Oromia</p>
-      <p class="lead">You start your application online, then finish it with a branch officer. The officer records your details, and a supervisor approves the file. Bring your documents and your account is ready to use.</p>
+      <p class="lead">A branch officer opens your application and records your details, and a supervisor approves the file. Bring your documents and your account is ready to use.</p>
       <p class="lead" style="margin-top:12px">Not sure which account fits you? Pick one below and read what it offers before you apply.</p>
     </div>
     <div class="bp ar" style="--d:.15s">
@@ -477,7 +477,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
         <li><b>Meet the officer</b><span>They enter your application and any opening deposit.</span></li>
         <li><b>Finish within 15 days</b><span>After approval, you have 15 days to hand in anything still missing.</span></li>
       </ol>
-      <a class="btn gold" href="new.php">Start an Application &rarr;</a>
+      <a class="btn gold" href="login.php">Officer sign in &rarr;</a>
     </div>
   </div>
 
@@ -500,7 +500,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
       <li><i>2</i><div><b>Simple to open</b><span>Bring your ID, proof of address and contact details.</span></div></li>
       <li><i>3</i><div><b>Regular saving</b><span>Deposit whenever you can.</span></div></li>
     </ul>
-    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+    <a class="btn dark" href="#products">What to bring to the branch &rarr;</a>
   </div>
   <div class="av ar" style="--d:.15s">
     <div class="aph" style="background:linear-gradient(135deg,#1e7a63,#0f5a52)"><span>💰</span><img src="img/ordinary-hero.jpg" alt="Ordinary Savings" loading="lazy" onerror="this.remove()"></div>
@@ -519,7 +519,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
       <li><i>2</i><div><b>Early saving habit</b><span>Built to start saving young.</span></div></li>
       <li><i>3</i><div><b>Minors</b><span>Ask your branch about the rules for opening for a child.</span></div></li>
     </ul>
-    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+    <a class="btn dark" href="#products">What to bring to the branch &rarr;</a>
   </div>
   <div class="av ar" style="--d:.15s">
     <div class="aph" style="background:linear-gradient(135deg,#f5b82e,#e59a14)"><span>🎓</span><img src="img/youth-hero.jpg" alt="Minor, Teen-Youth &amp; Youth Savings" loading="lazy" onerror="this.remove()"></div>
@@ -538,7 +538,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
       <li><i>2</i><div><b>Cashback</b><span>Get money back on your spending.</span></div></li>
       <li><i>3</i><div><b>Partner discounts</b><span>Save at partner shops and services.</span></div></li>
     </ul>
-    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+    <a class="btn dark" href="#products">What to bring to the branch &rarr;</a>
   </div>
   <div class="av ar" style="--d:.15s">
     <div class="aph" style="background:linear-gradient(135deg,#b5527a,#6e2a4b)"><span>👩🏾</span><img src="img/women-hero.jpg" alt="Women Saving Account" loading="lazy" onerror="this.remove()"></div>
@@ -557,7 +557,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
       <li><i>2</i><div><b>Healthcare discounts</b><span>Savings on health services.</span></div></li>
       <li><i>3</i><div><b>Priority services</b><span>Faster, easier service at the bank.</span></div></li>
     </ul>
-    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+    <a class="btn dark" href="#products">What to bring to the branch &rarr;</a>
   </div>
   <div class="av ar" style="--d:.15s">
     <div class="aph" style="background:linear-gradient(135deg,#8a6a2a,#4a3510)"><span>🧓🏾</span><img src="img/gasha-hero.jpg" alt="Gasha Saving Account" loading="lazy" onerror="this.remove()"></div>
@@ -576,7 +576,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
       <li><i>2</i><div><b>Incentives</b><span>Extra rewards for saving.</span></div></li>
       <li><i>3</i><div><b>Discounts</b><span>Savings on partner offers.</span></div></li>
     </ul>
-    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+    <a class="btn dark" href="#products">What to bring to the branch &rarr;</a>
   </div>
   <div class="av ar" style="--d:.15s">
     <div class="aph" style="background:linear-gradient(135deg,#1b4f6b,#0b3d3a)"><span>📚</span><img src="img/education-hero.jpg" alt="Education Saving Account" loading="lazy" onerror="this.remove()"></div>
@@ -595,7 +595,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
       <li><i>2</i><div><b>Rate agreed in advance</b><span>You know your rate from day one.</span></div></li>
       <li><i>3</i><div><b>Long-term saving</b><span>A high-return option for money you will not need soon.</span></div></li>
     </ul>
-    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+    <a class="btn dark" href="#products">What to bring to the branch &rarr;</a>
   </div>
   <div class="av ar" style="--d:.15s">
     <div class="aph" style="background:linear-gradient(135deg,#12302d,#2f6b5c)"><span>🔒</span><img src="img/fixed-hero.jpg" alt="Fixed-Time Deposit" loading="lazy" onerror="this.remove()"></div>
@@ -614,7 +614,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
       <li><i>2</i><div><b>Incentives</b><span>Extra rewards for saving.</span></div></li>
       <li><i>3</i><div><b>Discounts</b><span>Savings on partner offers.</span></div></li>
     </ul>
-    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+    <a class="btn dark" href="#products">What to bring to the branch &rarr;</a>
   </div>
   <div class="av ar" style="--d:.15s">
     <div class="aph" style="background:linear-gradient(135deg,#c0568a,#7a2a55)"><span>💍</span><img src="img/wedding-hero.jpg" alt="Wedding Saving Account" loading="lazy" onerror="this.remove()"></div>
@@ -633,7 +633,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
       <li><i>2</i><div><b>Incentives</b><span>Extra rewards for saving.</span></div></li>
       <li><i>3</i><div><b>Discounts</b><span>Savings on partner offers.</span></div></li>
     </ul>
-    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+    <a class="btn dark" href="#products">What to bring to the branch &rarr;</a>
   </div>
   <div class="av ar" style="--d:.15s">
     <div class="aph" style="background:linear-gradient(135deg,#1f9db8,#0b5d78)"><span>🏖️</span><img src="img/holiday-hero.jpg" alt="Holiday Saving Account" loading="lazy" onerror="this.remove()"></div>
@@ -652,7 +652,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
       <li><i>2</i><div><b>Incentives</b><span>Extra rewards for saving.</span></div></li>
       <li><i>3</i><div><b>Discounts</b><span>Savings on partner offers.</span></div></li>
     </ul>
-    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+    <a class="btn dark" href="#products">What to bring to the branch &rarr;</a>
   </div>
   <div class="av ar" style="--d:.15s">
     <div class="aph" style="background:linear-gradient(135deg,#c46a2b,#7a3a10)"><span>🧳</span><img src="img/guzo-hero.jpg" alt="Guzo Saving Account" loading="lazy" onerror="this.remove()"></div>
@@ -683,7 +683,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 
 <section style="padding-top:0"><div class="wrap"><div class="final rv">
   <h2>Ready to start saving?</h2><p>It takes a few minutes. Start your application now.</p>
-  <a class="btn gold" href="new.php">Start an Application &rarr;</a>
+  <a class="btn gold" href="login.php">Officer sign in &rarr;</a>
 </div></div></section>
 </main>
 
