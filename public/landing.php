@@ -342,6 +342,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .acc{scroll-margin-top:70px}
 @media(max-width:960px){.bg2{grid-template-columns:1fr;gap:32px}.bp{padding:26px}.bj{margin-top:44px}}
 @media(prefers-reduced-motion:reduce){.bjd{animation:none}}
+.loc{font-weight:600;color:#a07100;margin:-4px 0 14px}
 </style>
 </head>
 <body>
@@ -464,7 +465,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   <div class="bg2">
     <div class="bt ar">
       <div class="kick">YOUR BRANCH</div>
-      <h2>Open your account at CBE Nekemte Branch</h2>
+      <h2>Open your account at CBE Horo Guduru Branch</h2>
+    <p class="loc">Horo Guduru, Oromia</p>
       <p class="lead">You start your application online, then finish it with a branch officer. The officer records your details, and a supervisor approves the file. Bring your documents and your account is ready to use.</p>
       <p class="lead" style="margin-top:12px">Not sure which account fits you? Pick one below and read what it offers before you apply.</p>
     </div>
