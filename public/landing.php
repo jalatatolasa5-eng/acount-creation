@@ -291,42 +291,37 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .plan:hover .pv img{transform:scale(1.08)}
 #moreBtn{background:transparent;color:#fff;border-color:#ffffff66}
 #moreBtn:hover{background:#ffffff1a}
-.ws{background:linear-gradient(135deg,#fbeef3,#fff7ea);overflow:hidden}
-.wsg{display:grid;grid-template-columns:1.05fr 1fr;gap:70px;align-items:center}
-.wr{opacity:0;transform:translateY(30px);transition:opacity .8s var(--d,0s),transform .8s var(--d,0s)}
-.ws.vis .wr{opacity:1;transform:none}
-.ws .kick{color:#9b3f68}
-.ws h2{font-size:clamp(32px,4vw,48px)}
-.wperks{list-style:none;margin:26px 0 30px}
-.wperks li{display:flex;gap:16px;align-items:flex-start;margin-bottom:18px}
-.wperks i{flex:none;width:38px;height:38px;border-radius:50%;background:#b5527a;color:#fff;display:grid;place-items:center;font-style:normal;font-weight:800;box-shadow:0 0 0 6px #b5527a22}
-.wperks b{display:block}.wperks span{font-size:14px;color:var(--mut)}
-.wvis{position:relative;max-width:480px;margin:0 auto;width:100%;padding:30px 0}
-.wblob{position:absolute;inset:0;border-radius:46% 54% 60% 40%/50% 40% 60% 50%;background:linear-gradient(135deg,#f5b82e55,#b5527a55);animation:morph 9s ease-in-out infinite}
-@keyframes morph{50%{border-radius:60% 40% 40% 60%/40% 60% 40% 60%;transform:rotate(6deg) scale(1.04)}}
-.wphoto{position:relative;aspect-ratio:4/5;border-radius:200px 200px 28px 28px;overflow:hidden;background:linear-gradient(160deg,#f8d5e3,#e7b0c9);box-shadow:0 30px 70px #6e2a4b40;clip-path:inset(100% 0 0 0);transition:clip-path 1.3s cubic-bezier(.2,.8,.2,1) .2s}
-.ws.vis .wphoto{clip-path:inset(0 0 0 0)}
-.wphoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;transform:scale(1.15);transition:transform 2.4s .3s}
-.ws.vis .wphoto img{transform:scale(1)}
-.wphoto svg{position:absolute;left:0;bottom:0;width:100%}
-.wchip{position:absolute;background:#fff;border-radius:18px;padding:14px 18px;box-shadow:0 16px 36px #0b3d3a26;text-align:center;min-width:112px;opacity:0;transform:scale(.6);z-index:3}
-.wchip b{display:block;font-size:30px;font-weight:800;color:var(--g2);line-height:1.1}
-.wchip span{font-size:12px;color:var(--mut)}
-.ws.vis .wchip{animation:chin .7s var(--cd) forwards,chfloat var(--ft) calc(var(--cd) + .7s) ease-in-out infinite}
-.c1{left:-34px;top:12%;--cd:1.0s;--ft:5s}
-.c2{right:-30px;top:26%;--cd:1.3s;--ft:6s}
-.c3{left:-26px;bottom:20%;--cd:1.6s;--ft:5.5s}
-.c4{right:-22px;bottom:8%;--cd:1.9s;--ft:6.5s}
-@keyframes chin{to{opacity:1;transform:scale(1)}}
-@keyframes chfloat{50%{transform:translateY(-12px)}}
+.acc{padding:80px 0;background:#fff}
+.acc:nth-of-type(even){background:var(--bg)}
+.ag{display:grid;grid-template-columns:1.05fr 1fr;gap:70px;align-items:center}
+.acc.rev .at{order:2}.acc.rev .av{order:1}
+.ar{opacity:0;transform:translateY(28px);transition:opacity .8s var(--d,0s),transform .8s var(--d,0s)}
+.acc.vis .ar{opacity:1;transform:none}
+.at .kick{font-size:14px}
+.at h2{font-size:clamp(28px,3.6vw,42px)}
+.ap{list-style:none;margin:24px 0 28px}
+.ap li{display:flex;gap:16px;align-items:flex-start;margin-bottom:16px}
+.ap i{flex:none;width:36px;height:36px;border-radius:50%;background:var(--g2);color:#fff;display:grid;place-items:center;font-style:normal;font-weight:800}
+.ap b{display:block}.ap span{font-size:14px;color:var(--mut)}
+.av{position:relative;max-width:470px;width:100%;margin:0 auto;padding:22px 0}
+.aph{position:relative;aspect-ratio:4/5;border-radius:24px;overflow:hidden;display:grid;place-items:center;box-shadow:0 24px 56px #0b3d3a30}
+.aph span{font-size:96px}
+.aph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ac{position:absolute;background:#fff;border-radius:16px;padding:12px 16px;box-shadow:0 14px 32px #0b3d3a26;text-align:center;min-width:108px;z-index:2;opacity:0;transition:opacity .7s var(--cd)}
+.acc.vis .ac{opacity:1}
+.ac b{display:block;font-size:28px;font-weight:800;color:var(--g2);line-height:1.15}
+.ac b.tx{font-size:15px;line-height:1.3;max-width:130px}
+.ac span{font-size:12px;color:var(--mut)}
+.a1{left:-28px;top:14%;--cd:.5s}
+.a2{right:-24px;top:42%;--cd:.8s}
+.a3{left:-20px;bottom:10%;--cd:1.1s}
 @media(max-width:960px){
- .wsg{grid-template-columns:1fr;gap:40px}
- .c1,.c3{left:-6px}.c2,.c4{right:-6px}
- .wchip{padding:10px 12px;min-width:92px}.wchip b{font-size:24px}
+ .ag{grid-template-columns:1fr;gap:36px}
+ .acc.rev .at,.acc.rev .av{order:initial}
+ .a1,.a3{left:-6px}.a2{right:-6px}
+ .acc{padding:56px 0}
 }
-@media(prefers-reduced-motion:reduce){
- .wr{opacity:1;transform:none}.wphoto{clip-path:none}.wchip{opacity:1;transform:none}
-}
+@media(prefers-reduced-motion:reduce){.ar,.ac{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -514,37 +509,177 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   <div style="text-align:center;margin-top:40px" class="rv"><a class="btn gold" href="tariff.php">See rates &amp; fees &rarr;</a></div>
 </div></section>
 
-<section class="ws" id="women"><div class="wrap wsg">
-  <div class="wtxt">
-    <div class="kick wr">FEATURED ACCOUNT</div>
-    <h2 class="wr" style="--d:.1s">Women Saving Account</h2>
-    <p class="wr lead" style="--d:.2s">A savings account made for women. It pays higher interest than an ordinary account and adds everyday rewards, so saving a little each month earns you more.</p>
-    <ul class="wperks">
-      <li class="wr" style="--d:.35s"><i>1</i><div><b>Higher interest</b><span>Your balance grows faster than in an ordinary account.</span></div></li>
-      <li class="wr" style="--d:.5s"><i>2</i><div><b>Cashback</b><span>Get money back on your everyday spending.</span></div></li>
-      <li class="wr" style="--d:.65s"><i>3</i><div><b>Partner discounts</b><span>Save at shops and services that partner with CBE.</span></div></li>
+<section class="acc" id="acc-ordinary"><div class="wrap ag">
+  <div class="at ar">
+    <div class="kick">Ordinary</div>
+    <h2>Ordinary Savings</h2>
+    <p class="lead">The standard CBE savings account. Your money earns interest while you keep it safe and add to it over time.</p>
+    <ul class="ap">
+      <li><i>1</i><div><b>Interest-bearing</b><span>Your balance earns interest.</span></div></li>
+      <li><i>2</i><div><b>Simple to open</b><span>Bring your ID, proof of address and contact details.</span></div></li>
+      <li><i>3</i><div><b>Regular saving</b><span>Deposit whenever you can.</span></div></li>
     </ul>
-    <a class="btn dark wr" style="--d:.8s" href="new.php">Open a Women Saving Account &rarr;</a>
+    <a class="btn dark" href="new.php">Open this account &rarr;</a>
   </div>
-  <div class="wvis">
-    <div class="wblob"></div>
-    <div class="wphoto">
-      <img src="img/women-hero.jpg" alt="A woman smiling while using her phone" onerror="this.remove()">
-      <svg viewBox="0 0 300 380" aria-hidden="true">
-        <path d="M30 380C30 270 80 235 150 235s120 35 120 145Z" fill="#b5527a"/>
-        <rect x="132" y="190" width="36" height="52" rx="14" fill="#8a5a3b"/>
-        <ellipse cx="150" cy="140" rx="50" ry="58" fill="#9b6a47"/>
-        <path d="M92 140C80 50 150 22 205 66c28 28 14 80 4 108-6-36-20-60-58-70-34 8-48 26-59 36Z" fill="#2a1710"/>
-        <path d="M128 160q22 22 44 0" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <div class="wchip c1"><b data-n="1942" data-f="1">0</b><span>CBE founded</span></div>
-    <div class="wchip c2"><b data-n="3">0</b><span>extra perks</span></div>
-    <div class="wchip c3"><b data-n="4">0</b><span>steps to apply</span></div>
-    <div class="wchip c4"><b data-n="15">0</b><span>days to finish documents</span></div>
+  <div class="av ar" style="--d:.15s">
+    <div class="aph" style="background:linear-gradient(135deg,#1e7a63,#0f5a52)"><span>💰</span><img src="img/ordinary-hero.jpg" alt="Ordinary Savings" loading="lazy" onerror="this.remove()"></div>
+    <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
+    <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
+    <div class="ac a3"><b class="tx">Earns interest</b><span>key feature</span></div>
   </div>
 </div></section>
-
+<section class="acc rev" id="acc-youth"><div class="wrap ag">
+  <div class="at ar">
+    <div class="kick">Youth</div>
+    <h2>Minor, Teen-Youth &amp; Youth Savings</h2>
+    <p class="lead">These accounts help young people start saving early. Pick the one that matches your age group.</p>
+    <ul class="ap">
+      <li><i>1</i><div><b>Three age options</b><span>Minor, Teen-Youth and Youth accounts.</span></div></li>
+      <li><i>2</i><div><b>Early saving habit</b><span>Built to start saving young.</span></div></li>
+      <li><i>3</i><div><b>Minors</b><span>Ask your branch about the rules for opening for a child.</span></div></li>
+    </ul>
+    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+  </div>
+  <div class="av ar" style="--d:.15s">
+    <div class="aph" style="background:linear-gradient(135deg,#f5b82e,#e59a14)"><span>🎓</span><img src="img/youth-hero.jpg" alt="Minor, Teen-Youth &amp; Youth Savings" loading="lazy" onerror="this.remove()"></div>
+    <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
+    <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
+    <div class="ac a3"><b class="tx">Made for young savers</b><span>key feature</span></div>
+  </div>
+</div></section>
+<section class="acc" id="acc-women"><div class="wrap ag">
+  <div class="at ar">
+    <div class="kick">Women</div>
+    <h2>Women Saving Account</h2>
+    <p class="lead">A savings account made for women. It pays higher interest than an ordinary account and adds everyday rewards.</p>
+    <ul class="ap">
+      <li><i>1</i><div><b>Higher interest</b><span>Your balance grows faster.</span></div></li>
+      <li><i>2</i><div><b>Cashback</b><span>Get money back on your spending.</span></div></li>
+      <li><i>3</i><div><b>Partner discounts</b><span>Save at partner shops and services.</span></div></li>
+    </ul>
+    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+  </div>
+  <div class="av ar" style="--d:.15s">
+    <div class="aph" style="background:linear-gradient(135deg,#b5527a,#6e2a4b)"><span>👩🏾</span><img src="img/women-hero.jpg" alt="Women Saving Account" loading="lazy" onerror="this.remove()"></div>
+    <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
+    <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
+    <div class="ac a3"><b class="tx">Higher interest</b><span>key feature</span></div>
+  </div>
+</div></section>
+<section class="acc rev" id="acc-gasha"><div class="wrap ag">
+  <div class="at ar">
+    <div class="kick">Gasha</div>
+    <h2>Gasha Saving Account</h2>
+    <p class="lead">For citizens aged 55 and above. It adds care and convenience on top of higher interest.</p>
+    <ul class="ap">
+      <li><i>1</i><div><b>Higher interest</b><span>A better rate for senior savers.</span></div></li>
+      <li><i>2</i><div><b>Healthcare discounts</b><span>Savings on health services.</span></div></li>
+      <li><i>3</i><div><b>Priority services</b><span>Faster, easier service at the bank.</span></div></li>
+    </ul>
+    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+  </div>
+  <div class="av ar" style="--d:.15s">
+    <div class="aph" style="background:linear-gradient(135deg,#8a6a2a,#4a3510)"><span>🧓🏾</span><img src="img/gasha-hero.jpg" alt="Gasha Saving Account" loading="lazy" onerror="this.remove()"></div>
+    <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
+    <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
+    <div class="ac a3"><b class="tx">Ages 55 and above</b><span>key feature</span></div>
+  </div>
+</div></section>
+<section class="acc" id="acc-education"><div class="wrap ag">
+  <div class="at ar">
+    <div class="kick">Education</div>
+    <h2>Education Saving Account</h2>
+    <p class="lead">Save for school and university costs, and earn more than on an ordinary account.</p>
+    <ul class="ap">
+      <li><i>1</i><div><b>Above-ordinary interest</b><span>A better rate than ordinary savings.</span></div></li>
+      <li><i>2</i><div><b>Incentives</b><span>Extra rewards for saving.</span></div></li>
+      <li><i>3</i><div><b>Discounts</b><span>Savings on partner offers.</span></div></li>
+    </ul>
+    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+  </div>
+  <div class="av ar" style="--d:.15s">
+    <div class="aph" style="background:linear-gradient(135deg,#1b4f6b,#0b3d3a)"><span>📚</span><img src="img/education-hero.jpg" alt="Education Saving Account" loading="lazy" onerror="this.remove()"></div>
+    <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
+    <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
+    <div class="ac a3"><b class="tx">For school costs</b><span>key feature</span></div>
+  </div>
+</div></section>
+<section class="acc rev" id="acc-fixed"><div class="wrap ag">
+  <div class="at ar">
+    <div class="kick">Fixed-Time</div>
+    <h2>Fixed-Time Deposit</h2>
+    <p class="lead">Put your money away for a set period. The interest rate is agreed with the bank before you start.</p>
+    <ul class="ap">
+      <li><i>1</i><div><b>You choose the period</b><span>Pick how long to lock your money.</span></div></li>
+      <li><i>2</i><div><b>Rate agreed in advance</b><span>You know your rate from day one.</span></div></li>
+      <li><i>3</i><div><b>Long-term saving</b><span>A high-return option for money you will not need soon.</span></div></li>
+    </ul>
+    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+  </div>
+  <div class="av ar" style="--d:.15s">
+    <div class="aph" style="background:linear-gradient(135deg,#12302d,#2f6b5c)"><span>🔒</span><img src="img/fixed-hero.jpg" alt="Fixed-Time Deposit" loading="lazy" onerror="this.remove()"></div>
+    <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
+    <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
+    <div class="ac a3"><b class="tx">Fixed rate</b><span>key feature</span></div>
+  </div>
+</div></section>
+<section class="acc" id="acc-wedding"><div class="wrap ag">
+  <div class="at ar">
+    <div class="kick">Wedding</div>
+    <h2>Wedding Saving Account</h2>
+    <p class="lead">Save toward your wedding with a better rate than ordinary savings.</p>
+    <ul class="ap">
+      <li><i>1</i><div><b>Above-ordinary interest</b><span>A better rate than ordinary savings.</span></div></li>
+      <li><i>2</i><div><b>Incentives</b><span>Extra rewards for saving.</span></div></li>
+      <li><i>3</i><div><b>Discounts</b><span>Savings on partner offers.</span></div></li>
+    </ul>
+    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+  </div>
+  <div class="av ar" style="--d:.15s">
+    <div class="aph" style="background:linear-gradient(135deg,#c0568a,#7a2a55)"><span>💍</span><img src="img/wedding-hero.jpg" alt="Wedding Saving Account" loading="lazy" onerror="this.remove()"></div>
+    <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
+    <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
+    <div class="ac a3"><b class="tx">For your big day</b><span>key feature</span></div>
+  </div>
+</div></section>
+<section class="acc rev" id="acc-holiday"><div class="wrap ag">
+  <div class="at ar">
+    <div class="kick">Holiday</div>
+    <h2>Holiday Saving Account</h2>
+    <p class="lead">Set money aside for holidays and celebrations and earn above-ordinary interest.</p>
+    <ul class="ap">
+      <li><i>1</i><div><b>Above-ordinary interest</b><span>A better rate than ordinary savings.</span></div></li>
+      <li><i>2</i><div><b>Incentives</b><span>Extra rewards for saving.</span></div></li>
+      <li><i>3</i><div><b>Discounts</b><span>Savings on partner offers.</span></div></li>
+    </ul>
+    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+  </div>
+  <div class="av ar" style="--d:.15s">
+    <div class="aph" style="background:linear-gradient(135deg,#1f9db8,#0b5d78)"><span>🏖️</span><img src="img/holiday-hero.jpg" alt="Holiday Saving Account" loading="lazy" onerror="this.remove()"></div>
+    <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
+    <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
+    <div class="ac a3"><b class="tx">Plan ahead</b><span>key feature</span></div>
+  </div>
+</div></section>
+<section class="acc" id="acc-guzo"><div class="wrap ag">
+  <div class="at ar">
+    <div class="kick">Guzo</div>
+    <h2>Guzo Saving Account</h2>
+    <p class="lead">A goal-based account for travel. Ask your branch for the exact terms.</p>
+    <ul class="ap">
+      <li><i>1</i><div><b>Above-ordinary interest</b><span>A better rate than ordinary savings.</span></div></li>
+      <li><i>2</i><div><b>Incentives</b><span>Extra rewards for saving.</span></div></li>
+      <li><i>3</i><div><b>Discounts</b><span>Savings on partner offers.</span></div></li>
+    </ul>
+    <a class="btn dark" href="new.php">Open this account &rarr;</a>
+  </div>
+  <div class="av ar" style="--d:.15s">
+    <div class="aph" style="background:linear-gradient(135deg,#c46a2b,#7a3a10)"><span>🧳</span><img src="img/guzo-hero.jpg" alt="Guzo Saving Account" loading="lazy" onerror="this.remove()"></div>
+    <div class="ac a1"><b data-n="3">0</b><span>account perks</span></div>
+    <div class="ac a2"><b data-n="4">0</b><span>steps to apply</span></div>
+    <div class="ac a3"><b class="tx">For your journey</b><span>key feature</span></div>
+  </div>
+</div></section>
 <section id="requirements"><div class="wrap">
   <div style="text-align:center"><div class="kick rv">WHAT HAPPENS NEXT</div><h2 class="rv">From first form to active account</h2><p class="lead rv" style="margin:0 auto">Follow the line as you scroll. Each stage tells you what the bank does and what you do.</p></div>
   <div class="tl" id="tl">
@@ -650,17 +785,14 @@ b.onclick=function(){
 };
 })();
 (function(){
-var ws=document.getElementById('women');if(!ws)return;
-var wo=new IntersectionObserver(function(es){es.forEach(function(e){
+var s=[].slice.call(document.querySelectorAll('.acc'));
+var o=new IntersectionObserver(function(es){es.forEach(function(e){
   if(!e.isIntersecting)return;
-  ws.classList.add('vis');
-  setTimeout(function(){[].forEach.call(ws.querySelectorAll('[data-n]'),function(el){
-    if(el.dataset.f){var t0,to=+el.dataset.n;var f=function(t){t0=t0||t;var p=Math.min((t-t0)/1500,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
-    else count(el);
-  })},1100);
-  wo.disconnect();
+  e.target.classList.add('vis');
+  setTimeout(function(){[].forEach.call(e.target.querySelectorAll('[data-n]'),count)},600);
+  o.unobserve(e.target);
 })},{threshold:.25});
-wo.observe(ws);
+s.forEach(function(x){o.observe(x)});
 })();
 </script>
 </body>
