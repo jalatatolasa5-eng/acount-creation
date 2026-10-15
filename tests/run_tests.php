@@ -4,7 +4,7 @@
  * Usage: php tests/run_tests.php
  *
  * Uses an in-memory SQLite database — never touches live data.
- * All 46 tests must pass before finishing any change.
+ * All tests must pass before finishing any change.
  */
 
 require_once __DIR__ . '/../src/lib.php';
@@ -127,6 +127,10 @@ approve_account($db, $aid2, $s);   // bal=1000
 ]), $o);
 approve_account($db, $aid3, $s);   // bal=1000
 [$ok,$msg] = withdraw($db, $aid3, 75001, $o); ok(!$ok, 'fee tiers: 500 free, 501 costs 12, 75001 refused');
+ok(withdrawal_fee(500)[0] == 0,  'fee: 500 is free');
+ok(withdrawal_fee(501)[0] == 12, 'fee: 501 costs 12');
+ok(withdrawal_fee(75000)[0] == 12, 'fee: 75000 costs 12');
+ok(withdrawal_fee(75001)[1] !== null, 'fee: 75001 refused');
 
 // 600 withdrawal posts 600 + 12 fee
 [$ok4,$_,$aid4] = submit_application($db, app([
