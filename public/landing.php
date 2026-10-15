@@ -123,6 +123,28 @@ footer a{margin-right:22px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.burger{display:none;width:44px;height:44px;border:0;border-radius:12px;background:#ffffff18;cursor:pointer;position:relative;flex:none}
+.burger span,.burger:before,.burger:after{content:"";position:absolute;left:12px;right:12px;height:2px;background:#fff;border-radius:2px;transition:.3s}
+.burger:before{top:14px}.burger span{top:21px}.burger:after{top:28px}
+.burger.open:before{top:21px;transform:rotate(45deg)}.burger.open span{opacity:0}.burger.open:after{top:21px;transform:rotate(-45deg)}
+@media(max-width:960px){
+ .burger{display:block}
+ header .wrap{gap:10px}
+ header .btn{margin-left:auto}
+ nav{display:flex;flex-direction:column;gap:0;position:absolute;left:0;right:0;top:100%;background:var(--g);padding:6px 24px 18px;opacity:0;visibility:hidden;transform:translateY(-12px);transition:.3s;box-shadow:0 14px 30px #0005}
+ nav.open{opacity:1;visibility:visible;transform:none}
+ nav a{padding:14px 0;border-bottom:1px solid #ffffff1a;font-size:16px}
+ .logo small{display:none}
+}
+@media(max-width:560px){
+ .logo b{font-size:13px}.logo i{width:38px;height:38px}
+ header .btn{padding:8px 14px;font-size:13px}
+ .hero{padding:120px 0 70px}
+ .hero .cta .btn{width:100%;justify-content:center}
+ .stats,.trust .wrap,.steps{grid-template-columns:1fr}
+ .t{padding:0}
+ footer .wrap{flex-direction:column;text-align:center}
+}
 </style>
 </head>
 <body>
@@ -134,6 +156,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
     <a class="on" href="#top">Home</a><a href="#products">Savings Accounts</a><a href="#requirements">Requirements</a><a href="#how">How It Works</a><a href="#faq">Help &amp; Support</a>
   </nav>
   <a class="btn gold" href="login.php">Sign In</a>
+  <button class="burger" id="bg" aria-label="Menu" aria-expanded="false"><span></span></button>
 </div></header>
 
 <main id="top">
@@ -289,6 +312,12 @@ $('#chk').onclick=()=>{
   const v=$('#ref').value.trim(),r=$('#res');
   r.textContent=v?('Demo: no live lookup yet for "'+v+'". Log in to see applications.'):'Enter a reference number first.';
 };
+var bg=document.getElementById('bg'),nv=document.querySelector('nav');
+function shut(){bg.classList.remove('open');nv.classList.remove('open');bg.setAttribute('aria-expanded','false')}
+bg.onclick=function(){var o=nv.classList.toggle('open');bg.classList.toggle('open',o);bg.setAttribute('aria-expanded',o)};
+nv.addEventListener('click',function(e){if(e.target.tagName==='A')shut()});
+addEventListener('keydown',function(e){if(e.key==='Escape')shut()});
+addEventListener('resize',function(){if(innerWidth>960)shut()});
 </script>
 </body>
 </html>
