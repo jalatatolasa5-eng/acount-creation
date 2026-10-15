@@ -322,6 +322,26 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
  .acc{padding:56px 0}
 }
 @media(prefers-reduced-motion:reduce){.ar,.ac{opacity:1;transform:none}}
+.br{background:linear-gradient(180deg,#eef5f2,#fff)}
+.br.vis .ar,.br .ar.vis{opacity:1;transform:none}
+.bg2{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center}
+.bt h2{font-size:clamp(28px,3.6vw,42px)}
+.bp{background:var(--g);color:#fff;border-radius:24px;padding:34px;box-shadow:0 22px 50px #0b3d3a30}
+.bp h3{font-size:20px;margin-bottom:18px}
+.bp ol{list-style:none;counter-reset:s;margin-bottom:26px}
+.bp li{counter-increment:s;position:relative;padding-left:48px;margin-bottom:18px}
+.bp li:before{content:counter(s);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--g);display:grid;place-items:center;font-weight:800}
+.bp b{display:block}.bp span{font-size:14px;color:#c4dad6}
+.bj{margin-top:60px;text-align:center}
+.bjh b{display:block;font-size:22px}.bjh span{color:var(--mut);font-size:14px}
+.bjc{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:22px auto 0;max-width:820px}
+.bjc a{padding:11px 20px;border-radius:30px;background:#fff;border:1px solid #cfe0db;font-weight:600;font-size:14px;color:var(--g2);transition:background .2s,color .2s,transform .2s}
+.bjc a:hover{background:var(--g2);color:#fff;transform:translateY(-3px)}
+.bjd{margin-top:26px;font-size:13px;font-weight:600;color:#a07100;animation:nudge 2s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(7px)}}
+.acc{scroll-margin-top:70px}
+@media(max-width:960px){.bg2{grid-template-columns:1fr;gap:32px}.bp{padding:26px}.bj{margin-top:44px}}
+@media(prefers-reduced-motion:reduce){.bjd{animation:none}}
 </style>
 </head>
 <body>
@@ -440,73 +460,32 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   <div class="rv d3"><b data-n="24">0</b><span>Hour online access</span></div>
 </div></section>
 
-<section class="dark-sec" id="products"><span class="pcoin" style="left:5%;top:12%;--t:8s"></span><span class="pcoin" style="left:92%;top:22%;--t:10s;width:18px;height:18px"></span><span class="pcoin" style="left:12%;top:78%;--t:11s;width:20px;height:20px"></span><span class="pcoin" style="left:88%;top:80%;--t:9s"></span>
-<div class="wrap">
-  <div class="kick rv">SAVINGS PRODUCTS</div>
-  <h2 class="rv">Choose the account that fits you.</h2>
-  <p class="lead rv">Compare the demo products below. Check the tariff page for fees and rates.</p>
-  <div class="cards plans">
-    <article class="plan" style="--i:0"><div class="pin">
-      <div class="pv" style="background:linear-gradient(135deg,#1e7a63,#0f5a52)"><span class="em">💰</span><img src="img/ordinary.jpg" alt="Ordinary Savings" loading="lazy" onerror="this.remove()"></div>
-      <div class="pbody"><span class="lab">Ordinary</span><h3>Ordinary Savings</h3><p>An everyday interest-bearing account for saving.</p>
-        <ul><li>Low-risk everyday saving</li><li>Interest-bearing</li><li>Open at any branch</li></ul>
-        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
-    </div></article>
-    <article class="plan" style="--i:1"><div class="pin">
-      <div class="pv" style="background:linear-gradient(135deg,#f5b82e,#e59a14)"><span class="em">🎓</span><img src="img/youth.jpg" alt="Minor, Teen-Youth &amp; Youth Savings" loading="lazy" onerror="this.remove()"></div>
-      <div class="pbody"><span class="lab">Youth</span><h3>Minor, Teen-Youth &amp; Youth Savings</h3><p>Builds early saving habits for young people.</p>
-        <ul><li>Options for minors and teens</li><li>Simple requirements</li><li>Guardian support for minors</li></ul>
-        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
-    </div></article>
-    <article class="plan" style="--i:2"><div class="pin">
-      <div class="pv" style="background:linear-gradient(135deg,#b5527a,#6e2a4b)"><span class="em">👩🏾</span><img src="img/women.jpg" alt="Women Saving Account" loading="lazy" onerror="this.remove()"></div>
-      <div class="pbody"><span class="lab">Women</span><h3>Women Saving Account</h3><p>A savings account made for women.</p>
-        <ul><li>Higher interest</li><li>Cashback</li><li>Partner discounts</li></ul>
-        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
-    </div></article>
-    <article class="plan" style="--i:0"><div class="pin">
-      <div class="pv" style="background:linear-gradient(135deg,#8a6a2a,#4a3510)"><span class="em">🧓🏾</span><img src="img/gasha.jpg" alt="Gasha Saving Account" loading="lazy" onerror="this.remove()"></div>
-      <div class="pbody"><span class="lab">Gasha</span><h3>Gasha Saving Account</h3><p>For citizens aged 55 and above.</p>
-        <ul><li>Higher interest</li><li>Healthcare discounts</li><li>Priority services</li></ul>
-        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
-    </div></article>
-    <article class="plan" style="--i:1"><div class="pin">
-      <div class="pv" style="background:linear-gradient(135deg,#1b4f6b,#0b3d3a)"><span class="em">📚</span><img src="img/education.jpg" alt="Education Saving Account" loading="lazy" onerror="this.remove()"></div>
-      <div class="pbody"><span class="lab">Education</span><h3>Education Saving Account</h3><p>Save for school and university costs.</p>
-        <ul><li>Above-ordinary interest</li><li>Incentives</li><li>Discounts</li></ul>
-        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
-    </div></article>
-    <article class="plan" style="--i:2"><div class="pin">
-      <div class="pv" style="background:linear-gradient(135deg,#12302d,#2f6b5c)"><span class="em">🔒</span><img src="img/fixed.jpg" alt="Fixed-Time Deposit" loading="lazy" onerror="this.remove()"></div>
-      <div class="pbody"><span class="lab">Fixed-Time</span><h3>Fixed-Time Deposit</h3><p>Lock money for a set period for a higher return.</p>
-        <ul><li>Choose your period</li><li>Rate agreed in advance</li><li>Clear withdrawal rules</li></ul>
-        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
-    </div></article>
-</div>
-<div class="cards plans more" id="morePlans" hidden>
-    <article class="plan" style="--i:0"><div class="pin">
-      <div class="pv" style="background:linear-gradient(135deg,#c0568a,#7a2a55)"><span class="em">💍</span><img src="img/wedding.jpg" alt="Wedding Saving Account" loading="lazy" onerror="this.remove()"></div>
-      <div class="pbody"><span class="lab">Wedding</span><h3>Wedding Saving Account</h3><p>Save toward your wedding.</p>
-        <ul><li>Above-ordinary interest</li><li>Incentives</li><li>Discounts</li></ul>
-        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
-    </div></article>
-    <article class="plan" style="--i:1"><div class="pin">
-      <div class="pv" style="background:linear-gradient(135deg,#1f9db8,#0b5d78)"><span class="em">🏖️</span><img src="img/holiday.jpg" alt="Holiday Saving Account" loading="lazy" onerror="this.remove()"></div>
-      <div class="pbody"><span class="lab">Holiday</span><h3>Holiday Saving Account</h3><p>Save for your next trip.</p>
-        <ul><li>Above-ordinary interest</li><li>Incentives</li><li>Discounts</li></ul>
-        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
-    </div></article>
-    <article class="plan" style="--i:2"><div class="pin">
-      <div class="pv" style="background:linear-gradient(135deg,#c46a2b,#7a3a10)"><span class="em">🧳</span><img src="img/guzo.jpg" alt="Guzo Saving Account" loading="lazy" onerror="this.remove()"></div>
-      <div class="pbody"><span class="lab">Guzo</span><h3>Guzo Saving Account</h3><p>A goal-based account for travel.</p>
-        <ul><li>Above-ordinary interest</li><li>Incentives</li><li>Discounts</li></ul>
-        <a class="btn gold pbtn" href="new.php">Apply for this account</a></div>
-    </div></article>
-</div>
-<div style="text-align:center;margin-top:36px"><button class="btn out" id="moreBtn" type="button" aria-expanded="false" aria-controls="morePlans">Show more account types</button></div>
+<section class="br" id="products"><div class="wrap">
+  <div class="bg2">
+    <div class="bt ar">
+      <div class="kick">YOUR BRANCH</div>
+      <h2>Open your account at CBE Nekemte Branch</h2>
+      <p class="lead">You start your application online, then finish it with a branch officer. The officer records your details, and a supervisor approves the file. Bring your documents and your account is ready to use.</p>
+      <p class="lead" style="margin-top:12px">Not sure which account fits you? Pick one below and read what it offers before you apply.</p>
+    </div>
+    <div class="bp ar" style="--d:.15s">
+      <h3>At the branch</h3>
+      <ol>
+        <li><b>Bring your documents</b><span>A valid ID (National ID or passport), proof of address, and your phone number and email.</span></li>
+        <li><b>Meet the officer</b><span>They enter your application and any opening deposit.</span></li>
+        <li><b>Finish within 15 days</b><span>After approval, you have 15 days to hand in anything still missing.</span></li>
+      </ol>
+      <a class="btn gold" href="new.php">Start an Application &rarr;</a>
+    </div>
+  </div>
 
-
-  <div style="text-align:center;margin-top:40px" class="rv"><a class="btn gold" href="tariff.php">See rates &amp; fees &rarr;</a></div>
+  <div class="bj ar" style="--d:.3s">
+    <div class="bjh"><b>Choose your account</b><span>Nine accounts. Tap one to read about it.</span></div>
+    <div class="bjc">
+      <a href="#acc-ordinary">Ordinary</a><a href="#acc-youth">Youth</a><a href="#acc-women">Women</a><a href="#acc-gasha">Gasha (55+)</a><a href="#acc-education">Education</a><a href="#acc-fixed">Fixed-Time</a><a href="#acc-wedding">Wedding</a><a href="#acc-holiday">Holiday</a><a href="#acc-guzo">Guzo</a>
+    </div>
+    <div class="bjd" aria-hidden="true">Scroll down to compare &darr;</div>
+  </div>
 </div></section>
 
 <section class="acc" id="acc-ordinary"><div class="wrap ag">
@@ -793,6 +772,11 @@ var o=new IntersectionObserver(function(es){es.forEach(function(e){
   o.unobserve(e.target);
 })},{threshold:.25});
 s.forEach(function(x){o.observe(x)});
+})();
+(function(){
+var b=document.querySelector('.br');if(!b)return;
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){b.classList.add('vis');o.disconnect()}})},{threshold:.2});
+o.observe(b);
 })();
 </script>
 </body>
