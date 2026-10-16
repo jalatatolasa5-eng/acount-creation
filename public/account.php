@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../src/inc.php';
 require_login();
+require_once __DIR__ . '/../src/photo.php';
 
 $id = (int)($_GET['id'] ?? $_POST['id'] ?? 0);
 $a  = get_account($db,$id);
@@ -71,6 +72,11 @@ page_top('Account '.($a['account_no']?:$a['cif']));
     </dl>
   </div>
   <div style="display:flex;flex-direction:column;gap:12px;">
+    <?php if(photo_has($db,$id)): ?>
+    <div class="card" style="margin-bottom:0;text-align:center;padding:12px;">
+      <a href="photo.php?id=<?= $id ?>" target="_blank" title="Open full size"><img src="photo.php?id=<?= $id ?>" alt="Customer photo" style="width:110px;height:136px;object-fit:cover;border-radius:6px;border:1px solid #ddd;"></a>
+    </div>
+    <?php endif; ?>
     <div class="card" style="margin-bottom:0;text-align:center;border-top:3px solid var(--brand);">
       <p style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Current Balance</p>
       <p style="font-size:28px;font-weight:800;color:var(--brand-dk);font-variant-numeric:tabular-nums;">ETB <?= birr($a['balance']) ?></p>
