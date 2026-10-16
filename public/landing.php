@@ -342,6 +342,16 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 @media(prefers-reduced-motion:reduce){.bjd{animation:none}}
 .loc{font-weight:600;color:#a07100;margin:-4px 0 14px}
 </style>
+<style>
+/* Photo banner hero: image, dark overlay for readable text, old illustration hidden */
+.hero{background:linear-gradient(90deg,rgba(10,42,39,.84) 0%,rgba(10,42,39,.58) 55%,rgba(10,42,39,.28) 100%),url(assets/img/hero.jpg) center/cover no-repeat,linear-gradient(180deg,#fbe3bf 0%,#f6efe0 45%,#d6ead9 100%)}
+.hero svg.sky,.hero svg.person,.hero .script{display:none}
+.hero h1{color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.hero p{color:#f3f1ea;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+.hero .btn.dark{background:#fff;color:#0a2a27}
+.hero .btn.out{background:transparent;color:#fff;border-color:#fff}
+@media (max-width:700px){.hero{background:linear-gradient(180deg,rgba(10,42,39,.82),rgba(10,42,39,.68)),url(assets/img/hero.jpg) center/cover no-repeat,linear-gradient(180deg,#fbe3bf 0%,#d6ead9 100%)}}
+</style>
 </head>
 <body>
 <div id="bar"></div>
