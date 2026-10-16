@@ -154,6 +154,8 @@ function _sqlite_bootstrap(PDO $db): void
     CREATE INDEX IF NOT EXISTS idx_audit_user    ON audit_log(user_id);
     ");
 
+    wf_migrate($db);
+
     if ((int) $db->query("SELECT COUNT(*) FROM users")->fetchColumn() === 0) {
         $s = $db->prepare("INSERT INTO users(username,password,role) VALUES(?,?,?)");
         $s->execute(['officer',    password_hash('officer123', PASSWORD_DEFAULT), 'officer']);
@@ -561,6 +563,8 @@ function submit_application(PDO $db, array $in, int $uid): array
         ]);
         $aid = (int) $db->lastInsertId();
         audit($db, $uid, 'submit', "$cif {$v['account_type']} deposit " . birr($dep));
+        wf_status_log($db, $aid, null, 'Pending', $uid, 'Submitted');
+        wf_init_documents($db, $aid, $v, $uid);
         return [true, "Application for $cif submitted for supervisor approval.", $aid];
     });
 }
@@ -573,6 +577,11 @@ function approve_account(PDO $db, int $id, int $uid): array
         if ((int) $a['created_by'] === $uid)     return [false, 'Maker-checker rule: you cannot approve your own application.'];
         if (!$a['id_verified'] || !$a['kfs_given'] || !$a['agreement_signed'] || !$a['conditions_explained'])
             return [false, 'Identity verification or agreement steps are incomplete.'];
+
+        if (!empty($a['returned_at']))
+            return [false, 'This application was returned for correction and must be resubmitted first.'];
+        if ($bad = wf_blocking_documents($db, $id))
+            return [false, 'Documents not verified: ' . implode(', ', $bad) . '.'];
 
         $t = today($db);
         do {
@@ -595,6 +604,8 @@ function approve_account(PDO $db, int $id, int $uid): array
         post_tx($db, $id, 'Opening', (float) $a['opening_deposit'],
                 $zero ? 'Zero or low-balance opening' : 'Opening deposit', $uid, $t);
         audit($db, $uid, 'approve', $a['cif'] . ' -> ' . $no);
+        $db->prepare("UPDATE accounts SET decided_at=? WHERE id=?")->execute([$t, $id]);
+        wf_status_log($db, $id, 'Pending', 'Active', $uid, 'Approved');
         return [true, "Approved. Account $no is open."
             . ($zero ? ' It must reach ETB 100 by ' . add_days($t, FUNDING_DAYS) . '.' : '')];
     });
@@ -609,6 +620,8 @@ function reject_account(PDO $db, int $id, string $reason, int $uid): array
         $db->prepare("UPDATE accounts SET status='Rejected', reject_reason=?, decided_by=? WHERE id=?")
            ->execute([trim($reason), $uid, $id]);
         audit($db, $uid, 'reject', $a['cif'] . ': ' . trim($reason));
+        $db->prepare("UPDATE accounts SET decided_at=? WHERE id=?")->execute([today($db), $id]);
+        wf_status_log($db, $id, 'Pending', 'Rejected', $uid, trim($reason));
         return [true, 'Application rejected.'];
     });
 }
@@ -624,5 +637,8 @@ function reset_demo(PDO $db, ?int $uid): void
                    DELETE FROM sqlite_sequence WHERE name IN
                    ('transactions','accounts','customers','audit_log');");
     }
+    wf_reset($db);
     audit($db, $uid, 'reset', 'Demo data cleared');
 }
+
+require_once __DIR__ . '/workflow.php';
