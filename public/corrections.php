@@ -1,10 +1,15 @@
 <?php
 require_once __DIR__ . '/../src/inc.php';
 require_login(['officer']);
+require_once __DIR__ . '/../src/photo.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     check_csrf();
-    [$ok,$msg] = wf_resubmit($db,(int)($_POST['id'] ?? 0),$_POST,me());
+    $rid  = (int)($_POST['id'] ?? 0);
+    $perr = photo_check($_FILES['photo'] ?? null, false);
+    if ($perr) { flash($perr, 'err'); redirect(url('corrections.php')); }
+    [$ok,$msg] = wf_resubmit($db,$rid,$_POST,me());
+    if ($ok) photo_attach($db, $rid, $_FILES['photo'] ?? null);
     flash($msg,$ok?'ok':'err');
     redirect(url('corrections.php'));
 }
@@ -48,7 +53,7 @@ page_top('Corrections');
       <?php foreach($bad as $d): ?><span class="tag t-warn"><?= e($d['doc_type']) ?> (<?= e($d['status']) ?>)</span> <?php endforeach; ?></p>
     <?php endif; ?>
 
-    <form method="post" style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <form method="post" enctype="multipart/form-data" style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
       <?= csrf_field() ?>
       <input type="hidden" name="id" value="<?= (int)$id ?>">
       <label>Phone<input name="phone" value="<?= e($a['phone']) ?>" required></label>
@@ -60,6 +65,7 @@ page_top('Corrections');
       <label>Monthly income (ETB)<input name="monthly_income" type="number" step="0.01" min="0" value="<?= e($a['monthly_income'] ?? '') ?>" required></label>
       <label>TIN<?= $minor ? ' (optional for minors)' : '' ?><input name="tin" value="<?= e($a['tin'] ?? '') ?>"></label>
       <label>Nationality<select name="nationality"><?php foreach(['Ethiopian','Other'] as $n): ?><option<?= ($a['nationality'] ?? 'Ethiopian') === $n ? ' selected' : '' ?>><?= $n ?></option><?php endforeach; ?></select></label>
+      <label style="grid-column:1/-1;">Replace customer photo (optional, JPEG or PNG, up to 2 MB)<input type="file" name="photo" accept="image/jpeg,image/png"></label>
       <label style="grid-column:1/-1;">What did you correct? (required)
         <input name="note" placeholder="e.g. Attached a clear copy of the ID" required></label>
       <div style="grid-column:1/-1;"><button class="btn ok"><?= svg_icon('check') ?> Resubmit for review</button></div>

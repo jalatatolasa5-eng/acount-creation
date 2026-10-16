@@ -24,3 +24,4 @@ Thumbs.db
 backup.sql
 public/index.old.php
 public/assets/css/style.alt.css
+storage/

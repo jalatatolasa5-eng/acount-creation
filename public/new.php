@@ -1,13 +1,19 @@
 <?php
 require_once __DIR__ . '/../src/inc.php';
 require_login(['officer']);
+require_once __DIR__ . '/../src/photo.php';
 
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     check_csrf();
-    [$ok, $res, $aid] = submit_application($db, $_POST, me());
-    if ($ok) { flash($res); redirect(url('account.php?id=' . $aid)); }
-    $errors = $res;
+    $perr = photo_check($_FILES['photo'] ?? null, true);
+    if ($perr) {
+        $errors = ['photo' => $perr];
+    } else {
+        [$ok, $res, $aid] = submit_application($db, $_POST, me());
+        if ($ok) { photo_attach($db, (int) $aid, $_FILES['photo']); flash($res); redirect(url('account.php?id=' . $aid)); }
+        $errors = $res;
+    }
     flash('Fix the highlighted fields and resubmit.', 'err');
 }
 $val = fn($k, $d = '') => e($_POST[$k] ?? $d);
@@ -32,7 +38,7 @@ page_top('New Application');
   <?php endforeach; ?>
 </div>
 
-<form method="post" novalidate>
+<form method="post" enctype="multipart/form-data" novalidate>
   <?= csrf_field() ?>
 
   <div class="card">
@@ -100,6 +106,16 @@ page_top('New Application');
     <?= field_err($errors,'id_checked') ?>
   </div>
 
+  <div class="card">
+    <div class="card-header"><h2>Customer Photo</h2></div>
+    <div class="row">
+      <label>Recent photo supplied by the applicant <span class="req">*</span>
+        <input type="file" name="photo" accept="image/jpeg,image/png" required>
+        <small style="color:var(--muted);font-weight:400;">JPEG or PNG, up to 2 MB. If the form has other errors you will need to choose the photo again.</small>
+        <?= field_err($errors,'photo') ?>
+      </label>
+    </div>
+  </div>
   <div class="card">
     <div class="card-header"><h2>Customer Profile (KYC)</h2></div>
     <div class="row">
