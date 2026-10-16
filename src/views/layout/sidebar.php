@@ -38,6 +38,7 @@ function _nav(string $href, string $label, string $icon, string $cur, int $badge
       <?php if (!$is_sup): ?>
         <!-- Officer (Maker) only -->
         <?= _nav('new.php', 'New Application', 'plus', $cur) ?>
+        <?= _nav('corrections.php', 'Corrections', 'warn', $cur) ?>
       <?php endif; ?>
 
       <?php if ($is_sup): ?>

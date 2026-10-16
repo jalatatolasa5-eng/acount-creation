@@ -1,5 +1,5 @@
 <?php
-// Public status lookup: returns only status + account type. No name, phone or balance.
+// Public status lookup: returns only status + account type. No name, phone, balance or internal reasons.
 require_once __DIR__ . '/../src/lib.php';
 header('Content-Type: application/json; charset=utf-8');
 
@@ -13,7 +13,7 @@ try {
     $cfg = require __DIR__ . '/../src/config.php';
     $db  = db_connect($cfg);
     $st  = $db->prepare(
-        'SELECT a.type, a.status, a.funding_status, a.funding_deadline
+        'SELECT a.type, a.status, a.funding_status, a.funding_deadline, a.returned_at
            FROM accounts a JOIN customers c ON c.id = a.customer_id
           WHERE c.cif = ? OR a.account_no = ?
           ORDER BY a.id DESC LIMIT 1'
@@ -30,17 +30,21 @@ if (!$r) {
     exit;
 }
 
+$status = $r['status'];
+if ($status === 'Pending' && !empty($r['returned_at'])) $status = 'Needs correction';
+
 $map = [
-    'Pending'  => 'Under review. A supervisor has not decided yet.',
-    'Active'   => 'Approved. Your account is active.',
-    'Rejected' => 'Declined. Ask your officer at the branch.',
-    'Closed'   => 'This account is closed.',
+    'Pending'          => 'Under review. A supervisor has not decided yet.',
+    'Needs correction' => 'Needs correction. Your officer will contact you or ask you to visit the branch.',
+    'Active'           => 'Approved. Your account is active.',
+    'Rejected'         => 'Declined. Ask your officer at the branch.',
+    'Closed'           => 'This account is closed.',
 ];
-$msg = $map[$r['status']] ?? $r['status'];
-if ($r['status'] === 'Active' && $r['funding_status'] === 'Awaiting funding' && $r['funding_deadline']) {
+$msg = $map[$status] ?? $status;
+if ($status === 'Active' && $r['funding_status'] === 'Awaiting funding' && $r['funding_deadline']) {
     $msg .= ' Complete your deposit and documents by ' . $r['funding_deadline'] . '.';
 }
-if ($r['status'] === 'Active' && $r['funding_status'] === 'Overdue') {
+if ($status === 'Active' && $r['funding_status'] === 'Overdue') {
     $msg .= ' Your deadline has passed. Visit the branch.';
 }
-echo json_encode(['ok' => true, 'status' => $r['status'], 'type' => $r['type'], 'msg' => $msg]);
+echo json_encode(['ok' => true, 'status' => $status, 'type' => $r['type'], 'msg' => $msg]);
