@@ -51,3 +51,12 @@ function photo_attach(PDO $db, int $aid, $f): bool {
     if (!empty($r['photo_path'])) @unlink(photo_dir() . '/' . basename($r['photo_path']));
     return true;
 }
+
+// True if the customer of account $aid has a photo file on disk.
+function photo_has(PDO $db, int $aid): bool {
+    photo_ensure_column($db);
+    $s = $db->prepare('SELECT c.photo_path FROM accounts a JOIN customers c ON c.id = a.customer_id WHERE a.id = ?');
+    $s->execute([$aid]);
+    $p = basename((string) ($s->fetchColumn() ?: ''));
+    return $p !== '' && is_file(photo_dir() . '/' . $p);
+}

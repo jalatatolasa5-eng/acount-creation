@@ -1,12 +1,15 @@
 <?php
 require_once __DIR__ . '/../src/inc.php';
 require_login(['supervisor']);
+require_once __DIR__ . '/../src/photo.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     check_csrf();
     $id  = (int)($_POST['id'] ?? 0);
     $act = $_POST['action'] ?? '';
-    if     ($act === 'approve') [$ok,$msg] = approve_account($db,$id,me());
+    if     ($act === 'approve') [$ok,$msg] = photo_has($db,$id)
+        ? approve_account($db,$id,me())
+        : [false,'No customer photo on file. Return the application for correction so the officer can attach one.'];
     elseif ($act === 'reject')  [$ok,$msg] = reject_account($db,$id,$_POST['reason']??'',me());
     elseif ($act === 'return')  [$ok,$msg] = wf_return_application($db,$id,$_POST['reason']??'',me());
     elseif ($act === 'doc')     [$ok,$msg] = wf_set_document($db,$id,$_POST['doc']??'',$_POST['status']??'',me());
@@ -68,6 +71,11 @@ page_top('Approvals');
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
       <div>
         <p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:7px;">Customer</p>
+        <?php if(photo_has($db,$id)): ?>
+        <a href="photo.php?id=<?= $id ?>" target="_blank" title="Open full size"><img src="photo.php?id=<?= $id ?>" alt="Customer photo" style="display:block;width:84px;height:104px;object-fit:cover;border-radius:6px;border:1px solid #ddd;margin-bottom:8px;"></a>
+        <?php else: ?>
+        <p style="font-size:12px;font-weight:700;color:var(--bad);margin-bottom:8px;">No photo on file.</p>
+        <?php endif; ?>
         <dl class="info-grid" style="grid-template-columns:80px 1fr;">
           <dt>Born</dt><dd><?= e($a['dob']) ?></dd>
           <dt>Gender</dt><dd><?= e($a['gender']) ?></dd>
