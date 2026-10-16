@@ -374,8 +374,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   </svg>
   <div class="wrap">
     <span class="tag">SAVINGS ACCOUNT SERVICES</span>
-    <div class="brname" style="display:inline-block;margin:12px 0 0;padding:7px 16px;border:1.5px solid var(--gold);border-radius:40px;background:#fffc;color:var(--g);font-weight:700;font-size:14px">&#128205; Commercial Bank of Ethiopia &middot; Wayu Branch, Horo Guduru</div>
-    <h1>Open Your Savings Account with CBE</h1>
+    <div class="brname" style="display:inline-block;margin:12px 0 0;padding:7px 16px;border:1.5px solid var(--gold);border-radius:40px;background:#fffc;color:var(--g);font-weight:700;font-size:14px">&#128205; Commercial Bank of Ethiopia &middot; Horo Guduru Wayu Branch</div>
+    <h1>Open Your Savings Account at CBE Horo Guduru Wayu Branch</h1>
     <p>Secure your future today. Visit the branch, and an officer opens your application and records your documents. A supervisor then reviews it.</p>
     <div class="cta">
       <a class="btn dark" href="login.php">Officer sign in &rarr;</a>
@@ -464,7 +464,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   <div class="bg2">
     <div class="bt ar">
       <div class="kick">YOUR BRANCH</div>
-      <h2>Open your account at CBE Horo Guduru Branch</h2>
+      <h2>Open your account at CBE Horo Guduru Wayu Branch</h2>
     <p class="loc">Horo Guduru, Oromia</p>
       <p class="lead">A branch officer opens your application and records your details, and a supervisor approves the file. Bring your documents and your account is ready to use.</p>
       <p class="lead" style="margin-top:12px">Not sure which account fits you? Pick one below and read what it offers before you apply.</p>
@@ -648,12 +648,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 </style>
 <section class="cbhelp" id="cbhelp"><div class="wrap">
   <h2>Need help? Talk to CBE</h2>
-  <p class="sub">Call or write to the CBE contact center, or ask at the Horo Guduru branch.</p>
+  <p class="sub">Call or write to the CBE contact center, or ask at the Horo Guduru Wayu branch.</p>
   <div class="cbhelp-grid">
     <div class="cbhelp-box"><small>Contact center (Ethiopia)</small><a href="tel:951">951</a></div>
     <div class="cbhelp-box"><small>From abroad</small><a href="tel:+251113000000">+251-113-000000</a></div>
     <div class="cbhelp-box"><small>Email</small><a href="mailto:cbecontactcenter@cbe.com.et">cbecontactcenter@cbe.com.et</a></div>
-    <div class="cbhelp-box"><small>Your branch</small><span>Horo Guduru Branch</span></div>
+    <div class="cbhelp-box"><small>Your branch</small><span>Horo Guduru Wayu Branch</span></div>
   </div>
   <p class="cbhelp-note">Lost your phone or forgot your mobile banking PIN? Call 951 or visit any CBE branch. This is a demo project, not the official website. See <a href="https://combanketh.et" target="_blank" rel="noopener">combanketh.et</a> for current details.</p>
 </div></section>
