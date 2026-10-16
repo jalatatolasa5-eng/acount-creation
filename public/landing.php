@@ -349,7 +349,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 <header id="hd"><div class="wrap">
   <a class="logo" href="landing.php"><i>CBE</i><span><b>Commercial Bank of Ethiopia</b><small>The Bank for a Brighter Future</small></span></a>
   <nav>
-    <a class="on" href="#top">Home</a><a href="#products">Savings Accounts</a><a href="#requirements">Requirements</a><a href="#flow">How It Works</a><a href="#faq">Help &amp; Support</a>
+    <a class="on" href="#top">Home</a><a href="#products">Savings Accounts</a><a href="#requirements">Requirements</a><a href="#flow">How It Works</a><a href="#faq">Help &amp; Support</a><a href="about.php">About</a>
   </nav>
   <a class="btn gold" href="login.php">Sign In</a>
   <button class="burger" id="bg" aria-label="Menu" aria-expanded="false"><span></span></button>
