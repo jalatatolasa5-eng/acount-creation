@@ -179,4 +179,21 @@ page_top('Account '.($a['account_no']?:$a['cif']));
 <div id="account-data" data-balance="<?= (float)$a['balance'] ?>" hidden></div>
 <script>window.CBE_ACCOUNT_BALANCE = <?= (float)$a['balance'] ?>;</script>
 <script src="<?= url('assets/js/app.js') ?>"></script>
+<?php
+$__hid  = isset($a['id']) ? (int) $a['id'] : (int) ($_GET['id'] ?? 0);
+$__hist = $__hid ? wf_history($db, $__hid) : [];
+if ($__hist): ?>
+<div class="card" style="margin-top:16px;">
+  <div class="card-header"><h2>Status history</h2><span class="tag t-mute"><?= count($__hist) ?> change<?= count($__hist)==1?'':'s' ?></span></div>
+  <div style="padding:6px 16px 14px;">
+    <?php foreach ($__hist as $h): ?>
+    <div style="font-size:13px;padding:7px 0;border-top:1px dashed #eee;">
+      <strong><?= e($h['old_status'] ?? 'New') ?> &rarr; <?= e($h['new_status']) ?></strong>
+      <span style="color:var(--muted);"> &middot; <?= e($h['changed_at']) ?> &middot; <?= e($h['username'] ?? 'system') ?></span>
+      <?php if (($h['note'] ?? '') !== ''): ?><div style="color:var(--muted);font-size:12px;"><?= e($h['note']) ?></div><?php endif; ?>
+    </div>
+    <?php endforeach; ?>
+  </div>
+</div>
+<?php endif; ?>
 <?php page_bottom(); ?>
