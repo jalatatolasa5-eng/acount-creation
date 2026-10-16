@@ -84,6 +84,12 @@ page_top('Approvals');
           <dt>ID</dt><dd><?= e($a['id_type']) ?>: <?= e($a['id_number']) ?></dd>
           <?php if($a['card_fee']): ?><dt>Card fee</dt><dd>ETB <?= birr($a['card_fee']) ?> cash</dd><?php endif; ?>
           <dt>Signature</dt><dd><?= e($a['signature']) ?></dd>
+          <?php if(!empty($a['occupation'])): ?>
+          <dt>Occupation</dt><dd><?= e($a['occupation']) ?></dd>
+          <dt>Income</dt><dd>ETB <?= birr($a['monthly_income']) ?> / month</dd>
+          <dt>TIN</dt><dd><?= e($a['tin'] ?: 'none (minor)') ?></dd>
+          <dt>Nationality</dt><dd><?= e($a['nationality']) ?></dd>
+          <?php endif; ?>
         </dl>
       </div>
       <div>

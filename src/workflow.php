@@ -6,6 +6,7 @@ const WF_DOC_STATUSES = ['Unchecked', 'Verified', 'Missing', 'Invalid'];
 
 function wf_migrate(PDO $db): void
 {
+    wf_migrate_kyc($db);
     if ($db->getAttribute(PDO::ATTR_DRIVER_NAME) === 'mysql') { wf_migrate_mysql($db); return; }
     $have = $db->query("PRAGMA table_info(accounts)")->fetchAll(PDO::FETCH_COLUMN, 1);
     foreach (['decided_at TEXT', 'returned_reason TEXT', 'returned_by INTEGER', 'returned_at TEXT'] as $def) {
@@ -233,5 +234,22 @@ function wf_reset(PDO $db): void
     if ($db->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite') {
         try { $db->exec("DELETE FROM sqlite_sequence WHERE name IN ('status_history','application_documents')"); }
         catch (Throwable $x) {}
+    }
+}
+
+
+function wf_migrate_kyc(PDO $db): void
+{
+    if ($db->getAttribute(PDO::ATTR_DRIVER_NAME) === 'mysql') {
+        $q = $db->query("SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='customers'");
+        $have = array_map('strtolower', $q->fetchAll(PDO::FETCH_COLUMN));
+        $add = ['tin' => 'VARCHAR(20) NULL', 'occupation' => 'VARCHAR(60) NULL',
+                'monthly_income' => 'DECIMAL(14,2) NULL', 'nationality' => 'VARCHAR(30) NULL'];
+    } else {
+        $have = $db->query("PRAGMA table_info(customers)")->fetchAll(PDO::FETCH_COLUMN, 1);
+        $add = ['tin' => 'TEXT', 'occupation' => 'TEXT', 'monthly_income' => 'REAL', 'nationality' => 'TEXT'];
+    }
+    foreach ($add as $c => $d) {
+        if (!in_array($c, $have, true)) $db->exec("ALTER TABLE customers ADD COLUMN $c $d");
     }
 }

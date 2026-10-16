@@ -232,7 +232,7 @@ function get_account(PDO $db, int $id): array|false
 {
     $s = $db->prepare(
         "SELECT a.*, c.cif, c.first_name, c.last_name, c.dob, c.gender,
-                c.phone, c.address, c.id_type, c.id_number, c.guardian_id
+                c.phone, c.address, c.id_type, c.id_number, c.guardian_id, c.tin, c.occupation, c.monthly_income, c.nationality
            FROM accounts a
            JOIN customers c ON c.id = a.customer_id
           WHERE a.id = ?"
@@ -445,7 +445,8 @@ function validate_application(PDO $db, array $in): array
 {
     $keys = ['first_name','last_name','dob','gender','id_type','id_number',
              'phone','address','guardian_id','account_type','opening_deposit',
-             'source_of_funds','card_fee','signature'];
+             'source_of_funds','card_fee','signature',
+             'tin','occupation','monthly_income','nationality'];
     $v = [];
     foreach ($keys as $k) $v[$k] = trim((string) ($in[$k] ?? ''));
     foreach (['id_checked','kfs_given','agreement_signed','conditions_explained'] as $k)
@@ -491,6 +492,28 @@ function validate_application(PDO $db, array $in): array
         $e['source_of_funds'] = 'A deposit under ETB 100 needs a reasonable source of funds.';
 
     if (!in_array($v['card_fee'], ['','50','115'], true)) $e['card_fee'] = 'Choose a valid option.';
+
+    $v['kyc_sent'] = array_key_exists('occupation', $in) || array_key_exists('tin', $in)
+                  || array_key_exists('monthly_income', $in) || array_key_exists('nationality', $in);
+    if ($v['kyc_sent']) {
+        $adult = $dobOk && age_on($v['dob'], $t) >= 18;
+        if (strlen($v['occupation']) < 2 || strlen($v['occupation']) > 60)
+            $e['occupation'] = 'Enter the occupation (2 to 60 characters).';
+        if ($v['monthly_income'] === '' || !is_numeric($v['monthly_income'])
+            || (float) $v['monthly_income'] < 0 || (float) $v['monthly_income'] > 100000000)
+            $e['monthly_income'] = 'Enter the average monthly income in ETB (0 or more).';
+        if ($v['tin'] === '') {
+            if ($adult) $e['tin'] = 'The TIN is required for customers aged 18 or over.';
+        } elseif (!preg_match('/^[A-Za-z0-9\-]{5,20}$/', $v['tin'])) {
+            $e['tin'] = 'Enter a valid TIN (5 to 20 letters, digits or -).';
+        }
+        if (!in_array($v['nationality'], ['Ethiopian', 'Other'], true))
+            $e['nationality'] = 'Choose the nationality.';
+        elseif ($v['account_type'] === 'Ordinary savings' && $v['nationality'] !== 'Ethiopian')
+            $e['nationality'] = 'Ordinary savings is for Ethiopian citizens.';
+    }
+    if ($dobOk && $v['account_type'] === 'Ordinary savings' && age_on($v['dob'], $t) < 18)
+        $e['account_type'] = 'Ordinary savings is for customers aged 18 or over. Choose a minor, youth or teen account.';
 
     $full = $v['first_name'] . ' ' . $v['last_name'];
     if ($v['signature'] === '')
@@ -551,6 +574,11 @@ function submit_application(PDO $db, array $in, int $uid): array
             $cif = $c['cif'];
         }
 
+        if (!empty($v['kyc_sent'])) {
+            $db->prepare("UPDATE customers SET tin=?, occupation=?, monthly_income=?, nationality=? WHERE id=?")
+               ->execute([$v['tin'] === '' ? null : $v['tin'], $v['occupation'],
+                          round((float) $v['monthly_income'], 2), $v['nationality'], $cid]);
+        }
         $dep = round((float) $v['opening_deposit'], 2);
         $db->prepare(
             "INSERT INTO accounts(customer_id,type,rate,status,opening_deposit,source_of_funds,
@@ -575,6 +603,9 @@ function approve_account(PDO $db, int $id, int $uid): array
     return in_tx($db, function () use ($db, $id, $uid) {
         $a = get_account($db, $id);
         if (!$a || $a['status'] !== 'Pending')  return [false, 'This application is not waiting for approval.'];
+        $lk = $db->query("SELECT status FROM accounts WHERE id=" . (int) $id
+              . ($db->getAttribute(PDO::ATTR_DRIVER_NAME) === 'mysql' ? ' FOR UPDATE' : ''))->fetchColumn();
+        if ($lk !== 'Pending') return [false, 'This application is not waiting for approval.'];
         if ((int) $a['created_by'] === $uid)     return [false, 'Maker-checker rule: you cannot approve your own application.'];
         if (!$a['id_verified'] || !$a['kfs_given'] || !$a['agreement_signed'] || !$a['conditions_explained'])
             return [false, 'Identity verification or agreement steps are incomplete.'];
