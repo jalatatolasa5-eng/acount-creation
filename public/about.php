@@ -92,13 +92,9 @@ header('Content-Type: text/html; charset=utf-8');
   </section>
 
   <section class="fade">
-    <h2>About this project</h2>
-    <div class="note">
-      This is a student project that demonstrates savings account creation at CBE Horo Guduru Wayu Branch. It is not an official Commercial Bank of Ethiopia service, and the rates and fees shown come from published documents and may change. Approval stops at the branch supervisor, with no head-office review, and the working-day count skips weekends only, not public holidays.
-    </div>
     <a class="btn" href="landing.php">Back to home</a>
   </section>
 </main>
-<footer>CBE Horo Guduru Wayu Branch &middot; savings account creation demo &middot; educational project</footer>
+<footer>CBE Horo Guduru Wayu Branch &middot; Savings account opening</footer>
 </body>
 </html>
