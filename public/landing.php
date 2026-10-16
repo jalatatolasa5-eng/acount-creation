@@ -374,6 +374,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   </svg>
   <div class="wrap">
     <span class="tag">SAVINGS ACCOUNT SERVICES</span>
+    <div class="brname" style="display:inline-block;margin:12px 0 0;padding:7px 16px;border:1.5px solid var(--gold);border-radius:40px;background:#fffc;color:var(--g);font-weight:700;font-size:14px">&#128205; Commercial Bank of Ethiopia &middot; Wayu Branch, Horo Guduru</div>
     <h1>Open Your Savings Account with CBE</h1>
     <p>Secure your future today. Visit the branch, and an officer opens your application and records your documents. A supervisor then reviews it.</p>
     <div class="cta">
