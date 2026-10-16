@@ -6,7 +6,7 @@ const WF_DOC_STATUSES = ['Unchecked', 'Verified', 'Missing', 'Invalid'];
 
 function wf_migrate(PDO $db): void
 {
-    if ($db->getAttribute(PDO::ATTR_DRIVER_NAME) !== 'sqlite') return;
+    if ($db->getAttribute(PDO::ATTR_DRIVER_NAME) === 'mysql') { wf_migrate_mysql($db); return; }
     $have = $db->query("PRAGMA table_info(accounts)")->fetchAll(PDO::FETCH_COLUMN, 1);
     foreach (['decided_at TEXT', 'returned_reason TEXT', 'returned_by INTEGER', 'returned_at TEXT'] as $def) {
         if (!in_array(explode(' ', $def)[0], $have, true)) $db->exec("ALTER TABLE accounts ADD COLUMN $def");
@@ -31,6 +31,35 @@ function wf_migrate(PDO $db): void
         checked_at TEXT,
         UNIQUE(account_id, doc_type)
     );");
+}
+
+function wf_migrate_mysql(PDO $db): void
+{
+    $q = $db->query("SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='accounts'");
+    $have = array_map('strtolower', $q->fetchAll(PDO::FETCH_COLUMN));
+    $add = ['decided_at' => 'DATE NULL', 'returned_reason' => 'TEXT NULL', 'returned_by' => 'INT NULL', 'returned_at' => 'DATE NULL'];
+    foreach ($add as $col => $def) {
+        if (!in_array($col, $have, true)) $db->exec("ALTER TABLE accounts ADD COLUMN $col $def");
+    }
+    $db->exec("CREATE TABLE IF NOT EXISTS status_history(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        account_id INT NOT NULL,
+        old_status VARCHAR(40) NULL,
+        new_status VARCHAR(40) NOT NULL,
+        changed_by INT NULL,
+        changed_at DATETIME NOT NULL,
+        note TEXT NULL,
+        INDEX idx_sh_account (account_id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $db->exec("CREATE TABLE IF NOT EXISTS application_documents(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        account_id INT NOT NULL,
+        doc_type VARCHAR(40) NOT NULL,
+        status VARCHAR(20) NOT NULL DEFAULT 'Unchecked',
+        checked_by INT NULL,
+        checked_at DATE NULL,
+        UNIQUE KEY uq_doc (account_id, doc_type)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 }
 
 function wf_role(PDO $db, ?int $uid): ?string
@@ -125,9 +154,11 @@ function wf_set_document(PDO $db, int $id, string $doc, string $status, int $uid
     return in_tx($db, function () use ($db, $id, $doc, $status, $uid) {
         $a = get_account($db, $id);
         if (!$a || $a['status'] !== 'Pending') return [false, 'Documents can only be checked while the application is pending.'];
-        $s = $db->prepare("UPDATE application_documents SET status=?, checked_by=?, checked_at=? WHERE account_id=? AND doc_type=?");
-        $s->execute([$status, $uid, today($db), $id, $doc]);
-        if ($s->rowCount() === 0) return [false, 'This application has no "' . $doc . '" document.'];
+        $e = $db->prepare("SELECT COUNT(*) FROM application_documents WHERE account_id=? AND doc_type=?");
+        $e->execute([$id, $doc]);
+        if ((int) $e->fetchColumn() === 0) return [false, 'This application has no "' . $doc . '" document.'];
+        $db->prepare("UPDATE application_documents SET status=?, checked_by=?, checked_at=? WHERE account_id=? AND doc_type=?")
+           ->execute([$status, $uid, today($db), $id, $doc]);
         audit($db, $uid, 'document', $a['cif'] . ": $doc -> $status");
         return [true, "$doc marked $status."];
     });
