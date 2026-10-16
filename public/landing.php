@@ -352,6 +352,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .hero .btn.out{background:transparent;color:#fff;border-color:#fff}
 @media (max-width:700px){.hero{background:linear-gradient(180deg,rgba(10,42,39,.82),rgba(10,42,39,.68)),url(assets/img/hero.jpg) center/cover no-repeat,linear-gradient(180deg,#fbe3bf 0%,#d6ead9 100%)}}
 </style>
+<style>
+/* Account picture frame: follows the picture's own proportions. With no picture it keeps the 4:5 gradient. */
+.aph:has(img){aspect-ratio:auto;min-height:180px;display:block}
+.aph:has(img) span{display:none}
+.aph img{position:static;inset:auto;display:block;width:100%;height:auto;object-fit:contain}
+</style>
 </head>
 <body>
 <div id="bar"></div>
