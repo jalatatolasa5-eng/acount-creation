@@ -4,13 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Open Your Savings Account | Commercial Bank of Ethiopia (Demo)</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <style>
-:root{--g:#0b3d3a;--g2:#0f5a52;--gold:#f5b82e;--gold2:#ffe9b0;--ink:#12302d;--mut:#5b6f6c;--bg:#f4f8f6;--card:#fff}
+:root{--g:#1a0533;--g2:#3b1470;--gold:#c8962e;--gold2:#f6ecd5;--ink:#1a0533;--mut:#6b5589;--bg:#f5f3fa;--card:#fff}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
 #bar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--gold);z-index:100}
@@ -636,6 +634,28 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   <span>&copy; 2025 Student demo. Not a real bank system.</span>
 </div></footer>
 
+<style>
+.cbhelp{background:var(--g);color:#fff;padding:56px 0}
+.cbhelp h2{font-size:clamp(22px,3.4vw,30px);margin-bottom:6px}
+.cbhelp .sub{color:#d9cdee;margin-bottom:24px;max-width:620px}
+.cbhelp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.cbhelp-box{background:#ffffff14;border:1px solid #ffffff2e;border-radius:16px;padding:18px}
+.cbhelp-box small{display:block;color:var(--gold);font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:12px;margin-bottom:6px}
+.cbhelp-box a,.cbhelp-box span{color:#fff;font-size:18px;font-weight:700;word-break:break-word}
+.cbhelp-note{margin-top:22px;font-size:13px;color:#d9cdee}
+.cbhelp-note a{color:var(--gold);font-weight:700}
+</style>
+<section class="cbhelp" id="cbhelp"><div class="wrap">
+  <h2>Need help? Talk to CBE</h2>
+  <p class="sub">Call or write to the CBE contact center, or ask at the Horo Guduru branch.</p>
+  <div class="cbhelp-grid">
+    <div class="cbhelp-box"><small>Contact center (Ethiopia)</small><a href="tel:951">951</a></div>
+    <div class="cbhelp-box"><small>From abroad</small><a href="tel:+251113000000">+251-113-000000</a></div>
+    <div class="cbhelp-box"><small>Email</small><a href="mailto:cbecontactcenter@cbe.com.et">cbecontactcenter@cbe.com.et</a></div>
+    <div class="cbhelp-box"><small>Your branch</small><span>Horo Guduru Branch</span></div>
+  </div>
+  <p class="cbhelp-note">Lost your phone or forgot your mobile banking PIN? Call 951 or visit any CBE branch. This is a demo project, not the official website. See <a href="https://combanketh.et" target="_blank" rel="noopener">combanketh.et</a> for current details.</p>
+</div></section>
 <button class="tt" id="tt" aria-label="Back to top">&uarr;</button>
 
 <script>
