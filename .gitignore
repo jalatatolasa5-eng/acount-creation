@@ -22,3 +22,5 @@ Thumbs.db
 .vscode/
 *.swp
 backup.sql
+public/index.old.php
+public/assets/css/style.alt.css
