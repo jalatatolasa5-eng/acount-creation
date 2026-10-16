@@ -38,5 +38,14 @@ ok(isset(submit_application($db, $legacy, $o)[1]['account_type']), 'Ordinary sav
 ok(approve_account($db, $id, $s)[0], 'KYC application is approved normally');
 ok(!approve_account($db, $id, $s)[0], 'second approval is refused');
 
+// Resubmit can correct the KYC fields
+$rid = sub($db, $o)[2];
+wf_return_application($db, $rid, 'wrong TIN', $s);
+ok(!wf_resubmit($db, $rid, ['note' => 'fixed', 'tin' => 'xx', 'occupation' => 'Teacher', 'monthly_income' => '5000', 'nationality' => 'Ethiopian'], $o)[0], 'resubmit rejects a malformed TIN');
+ok(!wf_resubmit($db, $rid, ['note' => 'fixed', 'tin' => '0099887766', 'occupation' => '', 'monthly_income' => '5000', 'nationality' => 'Ethiopian'], $o)[0], 'resubmit rejects a blank occupation');
+ok(wf_resubmit($db, $rid, ['note' => 'fixed TIN', 'tin' => '0099887766', 'occupation' => 'Nurse', 'monthly_income' => '7000', 'nationality' => 'Ethiopian'], $o)[0], 'resubmit corrects the KYC fields');
+$g = get_account($db, $rid);
+ok($g['tin'] === '0099887766' && $g['occupation'] === 'Nurse' && (float) $g['monthly_income'] === 7000.0, 'corrected KYC values are saved');
+
 echo "\n$pass passed, $fail failed\n";
 exit($fail ? 1 : 0);

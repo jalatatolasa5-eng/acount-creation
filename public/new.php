@@ -101,6 +101,33 @@ page_top('New Application');
   </div>
 
   <div class="card">
+    <div class="card-header"><h2>Customer Profile (KYC)</h2></div>
+    <div class="row">
+      <label>Occupation <span class="req">*</span>
+        <input name="occupation" value="<?= $val('occupation') ?>" placeholder="e.g. Teacher, farmer, student" required>
+        <?= field_err($errors,'occupation') ?>
+      </label>
+      <label>Average Monthly Income (ETB) <span class="req">*</span>
+        <input type="number" step="0.01" min="0" name="monthly_income" value="<?= $val('monthly_income') ?>" placeholder="0 if none" required>
+        <?= field_err($errors,'monthly_income') ?>
+      </label>
+    </div>
+    <div class="row">
+      <label>TIN <span style="color:var(--muted);font-weight:400;">(required for 18 and over)</span>
+        <input name="tin" value="<?= $val('tin') ?>" placeholder="Tax identification number">
+        <?= field_err($errors,'tin') ?>
+      </label>
+      <label>Nationality <span class="req">*</span>
+        <select name="nationality">
+          <?php foreach(['Ethiopian','Other'] as $n): ?>
+            <option<?= $sel('nationality',$n) ?>><?= $n ?></option>
+          <?php endforeach; ?>
+        </select>
+        <?= field_err($errors,'nationality') ?>
+      </label>
+    </div>
+  </div>
+  <div class="card">
     <div class="card-header"><h2>3. Account &amp; Deposit</h2></div>
     <div class="row">
       <label>Account Type <span class="req">*</span>

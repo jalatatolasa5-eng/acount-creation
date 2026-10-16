@@ -210,8 +210,28 @@ function wf_resubmit(PDO $db, int $id, array $in, int $uid): array
         $t = today($db);
         if (age_on($a['dob'], $t) < 18 && $g === '') return [false, 'A guardian ID is required for applicants under 18.'];
 
+        $kycSent = false;
+        foreach (['tin', 'occupation', 'monthly_income', 'nationality'] as $k) if (array_key_exists($k, $in)) $kycSent = true;
+        $kyc = null;
+        if ($kycSent) {
+            $occ = trim((string) ($in['occupation'] ?? ''));
+            $inc = trim((string) ($in['monthly_income'] ?? ''));
+            $tin = trim((string) ($in['tin'] ?? ''));
+            $nat = trim((string) ($in['nationality'] ?? ''));
+            if (strlen($occ) < 2 || strlen($occ) > 60) return [false, 'Enter the occupation (2 to 60 characters).'];
+            if ($inc === '' || !is_numeric($inc) || (float) $inc < 0 || (float) $inc > 100000000)
+                return [false, 'Enter the average monthly income in ETB (0 or more).'];
+            if ($tin === '') { if (age_on($a['dob'], today($db)) >= 18) return [false, 'The TIN is required for customers aged 18 or over.']; }
+            elseif (!preg_match('/^[A-Za-z0-9\-]{5,20}$/', $tin)) return [false, 'Enter a valid TIN (5 to 20 letters, digits or -).'];
+            if (!in_array($nat, ['Ethiopian', 'Other'], true)) return [false, 'Choose the nationality.'];
+            if ($a['type'] === 'Ordinary savings' && $nat !== 'Ethiopian') return [false, 'Ordinary savings is for Ethiopian citizens.'];
+            $kyc = [$tin === '' ? null : $tin, $occ, round((float) $inc, 2), $nat];
+        }
+
         $db->prepare("UPDATE customers SET phone=?, address=?, guardian_id=? WHERE id=?")
            ->execute([$phone, $addr, $g === '' ? null : $g, $a['customer_id']]);
+        if ($kyc) $db->prepare("UPDATE customers SET tin=?, occupation=?, monthly_income=?, nationality=? WHERE id=?")
+                     ->execute(array_merge($kyc, [$a['customer_id']]));
         $db->prepare("UPDATE accounts SET opening_deposit=?, source_of_funds=?,
                       returned_reason=NULL, returned_by=NULL, returned_at=NULL WHERE id=?")
            ->execute([$dep, $src, $id]);

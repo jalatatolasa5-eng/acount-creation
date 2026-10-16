@@ -56,6 +56,10 @@ page_top('Corrections');
       <label>Opening deposit (ETB)<input name="opening_deposit" type="number" step="0.01" min="0" value="<?= e($a['opening_deposit']) ?>"></label>
       <label>Source of funds<input name="source_of_funds" value="<?= e($a['source_of_funds']) ?>"></label>
       <?php if($minor): ?><label>Guardian ID<input name="guardian_id" value="<?= e($a['guardian_id']) ?>"></label><?php endif; ?>
+      <label>Occupation<input name="occupation" value="<?= e($a['occupation'] ?? '') ?>" required></label>
+      <label>Monthly income (ETB)<input name="monthly_income" type="number" step="0.01" min="0" value="<?= e($a['monthly_income'] ?? '') ?>" required></label>
+      <label>TIN<?= $minor ? ' (optional for minors)' : '' ?><input name="tin" value="<?= e($a['tin'] ?? '') ?>"></label>
+      <label>Nationality<select name="nationality"><?php foreach(['Ethiopian','Other'] as $n): ?><option<?= ($a['nationality'] ?? 'Ethiopian') === $n ? ' selected' : '' ?>><?= $n ?></option><?php endforeach; ?></select></label>
       <label style="grid-column:1/-1;">What did you correct? (required)
         <input name="note" placeholder="e.g. Attached a clear copy of the ID" required></label>
       <div style="grid-column:1/-1;"><button class="btn ok"><?= svg_icon('check') ?> Resubmit for review</button></div>
